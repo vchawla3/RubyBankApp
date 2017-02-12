@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Acc number:</strong>
+  <%= @account.acc_number %>
+</p>
+
+<p>
+  <strong>Is closed:</strong>
+  <%= @account.is_closed %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @account.balance %>
+</p>
+
+<%= link_to 'Edit', edit_account_path(@account) %> |
+<%= link_to 'Back', accounts_path %>

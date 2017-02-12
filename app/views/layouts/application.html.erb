@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BankApplication</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'default', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'default', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <h1>Online Banking Application</h1>
+  <div id="user_header">
+    <% if current_user %>
+        Logged in as <%= current_user.email %>.
+        <%= link_to "Log Out", logout_path %>
+    <% else %>
+        <%= link_to "Log In", login_path %>
+    <% end %>
+  </div>
+
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, class: "alert alert-#{key}") do %>
+      <p><%= value %></p>
+    <% end %>
+  <% end %>
+
+  <%= yield %>
+  <br><br>
+
+  <%= link_to "Show all admins", people_url %> <%= link_to "Show all users", users_url %> <%= link_to "Show all friends", friends_url %>
+  <%= link_to "Show all accounts", accounts_url %> <%= link_to "Show all transactions", transactions_url %>
+
+  </body>
+</html>

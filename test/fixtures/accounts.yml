@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  acc_number: MyString
+  is_closed: false
+  balance: 9.99
+
+two:
+  acc_number: MyString
+  is_closed: false
+  balance: 9.99
