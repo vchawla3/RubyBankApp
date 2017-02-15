@@ -30,12 +30,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.11', require: false
-if Bundler::WINDOWS
-  gem 'bcrypt-ruby', '~> 3.0.0', require: false
-else
-  gem 'bcrypt', '~> 3.1.11', require: false
-end
+gem 'devise', '~> 4.2.0'
+gem 'thor', '=0.19.1'
+gem 'coffee-script-source', '~> 1.8.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -29,7 +29,4 @@ class Person < ApplicationRecord
   #validates :password, :presence => true, :confirmation => true #password_confirmation attr
   #validates_length_of :password, :in => 6..20, :on => :create
 
-  def to_s
-    "#{FNAme} #{LName}"
-  end
 end
