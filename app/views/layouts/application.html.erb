@@ -3,8 +3,8 @@
 <html>
   <head>
 
-    <% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
-    <% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
+    <% if notice %><div id="notice"><%= notice %></div><% end %>
+    <% if alert %><div id="alert"><%= alert %></div><% end %>
 
     <%= csrf_meta_tags %>
 

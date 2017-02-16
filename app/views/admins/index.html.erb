@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
 
 <h1>Welcome to the Administration Menu</h1>
 
@@ -6,10 +7,10 @@
 <br>
 <%= link_to 'Manage Admins', people_url %>
 <br><br>
-<%= link_to 'Manage Users', users_url %>
+<%= link_to 'Manage Users', people_url %>
 <br><br>
-<%= link_to 'Manage Accounts', people_url %>
+<%= link_to 'Manage Accounts', accounts_url %>
 <br><br>
-<%= link_to 'Manage Transactions', people_url %>
+<%= link_to 'Manage Transactions', transactions_url %>
 <br><br>
 <%= link_to "Edit Profile", admins_url %>

@@ -1,3 +1,0 @@
-class MenusController < ApplicationController
-
-end

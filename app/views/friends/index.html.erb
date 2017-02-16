@@ -1,4 +1,5 @@
-<p id="notice"><%= notice %></p>
+<% if notice %><div class="alert alert-info"><%= notice %></div><% end %>
+<% if alert %><div class="alert alert-warning"><%= alert %></div><% end %>
 
 <h1>Friends</h1>
 
