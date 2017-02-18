@@ -5,5 +5,4 @@ class Transaction < ApplicationRecord
   validates :status, :presence => true
   validates :amount, :presence => true
   validates :start_date, :presence => true
-
 end

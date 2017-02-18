@@ -13,17 +13,17 @@
 
   <div class="field">
     <%= f.label :transtype %>
-    <%= f.text_field :transtype %>
+    <%= select('transaction', 'transtype', [['Deposit', 1], ['Withdraw', 2], ['Transfer', 3]]) %>
   </div>
 
   <div class="field">
-    <%= f.label :sender %>
-    <%= f.text_area :sender %>
+    <%= f.label "Sender" %>
+    <%= select("transaction", "account_id", Account.all.collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
 
   <div class="field">
     <%= f.label :receiver %>
-    <%= f.text_area :receiver %>
+    <%= select("transaction", "receiver", Account.all.collect{ |c| [ c.acc_number]}) %>
   </div>
 
   <div class="field">

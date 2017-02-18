@@ -18,10 +18,10 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= transaction.transtype %></td>
-        <td><%= transaction.sender %></td>
+        <td><%= transaction.account.acc_number %></td>
         <td><%= transaction.receiver %></td>
         <td><%= transaction.status %></td>
-        <td><%= transaction.amount %></td>
+        <td><%= number_to_currency(transaction.amount) %></td>
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
         <td><%= link_to 'Show', transaction %></td>

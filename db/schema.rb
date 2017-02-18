@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20170215004003) do
   create_table "accounts", force: :cascade do |t|
     t.string   "acc_number"
     t.boolean  "is_closed"
-    t.decimal  "balance"
+    t.decimal  "balance",    default: "0.0"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
@@ -31,14 +31,15 @@ ActiveRecord::Schema.define(version: 20170215004003) do
 
   create_table "transactions", force: :cascade do |t|
     t.string   "transtype"
-    t.text     "sender"
-    t.text     "receiver"
+    t.string   "receiver"
     t.string   "status"
     t.decimal  "amount"
     t.datetime "start_date"
     t.datetime "effective_date"
+    t.integer  "account_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["account_id"], name: "index_transactions_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|
