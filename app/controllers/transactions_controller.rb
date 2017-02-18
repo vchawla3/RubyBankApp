@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+  #before_action :authenticate_user!
   before_action :set_transaction, only: [:show, :edit, :update, :destroy]
 
   # GET /transactions
@@ -25,6 +26,10 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+
+    if @transaction.amount < 1000
+      @transaction.effective_date = @transaction.start_date
+    end
 
     respond_to do |format|
       if @transaction.save
@@ -69,6 +74,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:type, :sender, :receiver, :status, :amount, :start_date, :effective_date)
+      params.require(:transaction).permit(:transtype, :sender, :receiver, :status, :amount, :start_date, :effective_date)
     end
 end

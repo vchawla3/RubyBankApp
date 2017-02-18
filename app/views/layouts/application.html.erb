@@ -3,17 +3,17 @@
 <html>
   <head>
 
-    <% if notice %><div id="notice"><%= notice %></div><% end %>
-    <% if alert %><div id="alert"><%= alert %></div><% end %>
+    <% if notice %><div id="notice"><p style="color:darkgreen; font-size: medium;"><%= notice %></p></div><% end %>
+    <% if alert %><div id="alert"><p style="color: red; font-size: medium;"><%= alert %></p></div><% end %>
 
-    <%= csrf_meta_tags %>
+    <%= csrf_meta_tags %><div style="font-size: small; font-weight: bold">
 
     <% if user_signed_in? %>
-        <%= link_to current_user.email, edit_user_registration_path %><b/>
+        <%= link_to "Account(" + current_user.email + ")", edit_user_registration_path, {:style=>"color:#909;"} %>
         <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% else %>
         <%= link_to "Login", new_user_session_path %>
-    <% end %>
+    <% end %></div>
 
     <title>BankApplication</title>
 
@@ -31,7 +31,7 @@
   <%= yield %>
   <br><br>
 
-  <%= link_to "Show all admins", people_url %><%= link_to "Show all friends", friends_url %>
+  <%= link_to "Show all admins", users_url %><%= link_to "Show all friends", friends_url %>
   <%= link_to "Show all accounts", accounts_url %> <%= link_to "Show all transactions", transactions_url %>
 
   </body>

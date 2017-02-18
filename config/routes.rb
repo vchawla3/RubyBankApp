@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :path => 'u'
+  resources :users
   resources :transactions
   resources :accounts
   resources :friends
-  resources :people
   resources :admins
 
   root "admins#index"
