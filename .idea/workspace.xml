@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9202e71-3b27-4b1c-bd1a-909bacb66453" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/account.rb" afterPath="$PROJECT_DIR$/app/models/account.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/accounts/index.html.erb" afterPath="$PROJECT_DIR$/app/views/accounts/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/accounts/show.html.erb" afterPath="$PROJECT_DIR$/app/views/accounts/show.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/accounts_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/accounts_controller.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +24,7 @@
     <SUITE FILE_PATH="coverage/BankApplication@db_seed__BankApplication.coverage" NAME="db:seed: BankApplication Coverage Results" MODIFIED="1487444326874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="BankApplication" />
     <SUITE FILE_PATH="coverage/BankApplication@IRB_console__BankApplication.coverage" NAME="IRB console: BankApplication Coverage Results" MODIFIED="1486875497939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="BankApplication" />
     <SUITE FILE_PATH="coverage/BankApplication@db_reset__BankApplication.coverage" NAME="db:reset: BankApplication Coverage Results" MODIFIED="1487444204494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="BankApplication" />
-    <SUITE FILE_PATH="coverage/BankApplication@Development__BankApplication.coverage" NAME="Development: BankApplication Coverage Results" MODIFIED="1487450121414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="BankApplication" />
+    <SUITE FILE_PATH="coverage/BankApplication@Development__BankApplication.coverage" NAME="Development: BankApplication Coverage Results" MODIFIED="1487450931732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="BankApplication" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -42,38 +40,12 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="accounts_controller.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="accounts_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/accounts_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
-              <folding>
-                <marker date="1487450051424" expanded="true" signature="24:1991" ph=" ... end" />
-                <marker date="1487450051424" expanded="true" signature="121:222" ph="##..." />
-                <marker date="1487450051424" expanded="true" signature="272:314" ph="##..." />
-                <marker date="1487450051424" expanded="true" signature="444:484" ph="##..." />
-                <marker date="1487450051424" expanded="true" signature="497:911" ph=" ... end" />
-                <marker date="1487450051424" expanded="true" signature="557:905" ph="do ... end" />
-                <marker date="1487450051424" expanded="true" signature="612:681" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="702:756" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="788:803" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="824:887" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="915:969" ph="##..." />
-                <marker date="1487450051424" expanded="true" signature="982:1366" ph=" ... end" />
-                <marker date="1487450051424" expanded="true" signature="998:1360" ph="do ... end" />
-                <marker date="1487450051424" expanded="true" signature="1016:1352" ph="if ... end" />
-                <marker date="1487450051424" expanded="true" signature="1071:1140" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1161:1210" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1242:1258" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1279:1342" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1370:1418" ph="##..." />
-                <marker date="1487450051424" expanded="true" signature="1432:1627" ph=" ... end" />
-                <marker date="1487450051424" expanded="true" signature="1469:1621" ph="do ... end" />
-                <marker date="1487450051424" expanded="true" signature="1499:1574" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1593:1613" ph="{ ... }" />
-                <marker date="1487450051424" expanded="true" signature="1732:1783" ph=" ... end" />
-                <marker date="1487450051424" expanded="true" signature="1896:1987" ph=" ... end" />
-              </folding>
+            <state relative-caret-position="206">
+              <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,7 +112,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/accounts/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
@@ -236,13 +208,13 @@
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/db/migrate/20170211225045_create_accounts.rb" />
         <option value="$PROJECT_DIR$/app/views/accounts/_account.json.jbuilder" />
-        <option value="$PROJECT_DIR$/app/controllers/accounts_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/accounts/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/accounts/edit.html.erb" />
         <option value="$PROJECT_DIR$/app/views/accounts/_edit.html.erb" />
         <option value="$PROJECT_DIR$/app/models/account.rb" />
         <option value="$PROJECT_DIR$/app/views/accounts/show.html.erb" />
         <option value="$PROJECT_DIR$/app/views/accounts/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/accounts_controller.rb" />
       </list>
     </option>
   </component>
@@ -889,7 +861,7 @@
       <workItem from="1487157748346" duration="3764000" />
       <workItem from="1487163666757" duration="13873000" />
       <workItem from="1487242096838" duration="15330000" />
-      <workItem from="1487365389230" duration="39809000" />
+      <workItem from="1487365389230" duration="40084000" />
     </task>
     <task id="LOCAL-00001" summary="Authentication starting to work">
       <created>1487168859475</created>
@@ -968,7 +940,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487450081086</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Accounts parameters">
+      <created>1487450795739</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1487450795739</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -977,7 +956,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="125750000" />
+    <option name="totallyTimeSpent" value="126025000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1043,7 +1022,8 @@
     <MESSAGE value="Initial routing" />
     <MESSAGE value="Accounts creation/deletion" />
     <MESSAGE value="Accounts edit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Accounts edit" />
+    <MESSAGE value="Accounts parameters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Accounts parameters" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1381,40 +1361,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/accounts_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="26" column="12" lean-forward="false" selection-start-line="26" selection-start-column="12" selection-end-line="26" selection-end-column="12" />
-          <folding>
-            <marker date="1487450051424" expanded="true" signature="24:1991" ph=" ... end" />
-            <marker date="1487450051424" expanded="true" signature="121:222" ph="##..." />
-            <marker date="1487450051424" expanded="true" signature="272:314" ph="##..." />
-            <marker date="1487450051424" expanded="true" signature="444:484" ph="##..." />
-            <marker date="1487450051424" expanded="true" signature="497:911" ph=" ... end" />
-            <marker date="1487450051424" expanded="true" signature="557:905" ph="do ... end" />
-            <marker date="1487450051424" expanded="true" signature="612:681" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="702:756" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="788:803" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="824:887" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="915:969" ph="##..." />
-            <marker date="1487450051424" expanded="true" signature="982:1366" ph=" ... end" />
-            <marker date="1487450051424" expanded="true" signature="998:1360" ph="do ... end" />
-            <marker date="1487450051424" expanded="true" signature="1016:1352" ph="if ... end" />
-            <marker date="1487450051424" expanded="true" signature="1071:1140" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1161:1210" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1242:1258" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1279:1342" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1370:1418" ph="##..." />
-            <marker date="1487450051424" expanded="true" signature="1432:1627" ph=" ... end" />
-            <marker date="1487450051424" expanded="true" signature="1469:1621" ph="do ... end" />
-            <marker date="1487450051424" expanded="true" signature="1499:1574" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1593:1613" ph="{ ... }" />
-            <marker date="1487450051424" expanded="true" signature="1732:1783" ph=" ... end" />
-            <marker date="1487450051424" expanded="true" signature="1896:1987" ph=" ... end" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/accounts/new.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1485,6 +1431,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="24" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/accounts_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="56" column="27" lean-forward="true" selection-start-line="56" selection-start-column="27" selection-end-line="56" selection-end-column="27" />
           <folding />
         </state>
       </provider>
