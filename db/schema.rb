@@ -27,19 +27,6 @@ ActiveRecord::Schema.define(version: 20170215004003) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "people", force: :cascade do |t|
-    t.string   "LName"
-    t.string   "FName"
-    t.string   "init"
-    t.string   "email"
-    t.string   "password"
-    t.boolean  "is_admin"
-    t.boolean  "is_user"
-    t.boolean  "is_super"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.string   "transtype"
     t.text     "sender"
