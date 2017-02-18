@@ -5,6 +5,8 @@ class CreateAccounts < ActiveRecord::Migration[5.0]
       t.boolean :is_closed
       t.decimal :balance
 
+
+      t.references :user
       t.timestamps
     end
   end

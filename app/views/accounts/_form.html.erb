@@ -12,7 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :acc_number %>
+    <%= f.label "User Email" %>
+    <%= select("account", "user_id", User.where("is_user = 't'").all.collect{ |c| [ c.email, c.id]}) %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Account Number" %>
     <%= f.text_field :acc_number %>
   </div>
 

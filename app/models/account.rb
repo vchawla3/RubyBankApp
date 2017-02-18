@@ -4,4 +4,5 @@ class Account < ApplicationRecord
 
   validates :acc_number, :presence => true
   validates :balance, :presence => true
+  validates :user_id, :presence => true
 end
