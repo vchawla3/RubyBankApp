@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   def ensure_admin_user!
     unless current_user.is_admin?
-      redirect_to root_path, alert: "You don't belong there."
+      redirect_to root_path, alert: "You don't belong there!"
     end
   end
 
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   # GET /people/new
   def new
     @user = User.new
+    @user
   end
 
   # GET /people/1/edit

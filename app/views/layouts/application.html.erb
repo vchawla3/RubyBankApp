@@ -11,8 +11,6 @@
     <% if user_signed_in? %>
         <%= link_to "Account(" + current_user.email + ")", edit_user_registration_path, {:style=>"color:#909;"} %>
         <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% else %>
-        <%= link_to "Login", new_user_session_path %>
     <% end %></div>
 
     <title>BankApplication</title>
