@@ -13,17 +13,22 @@
 
   <div class="field">
     <%= f.label "User Email" %>
-    <%= select("account", "user_id", User.where("is_user = 't'").all.collect{ |c| [ c.email, c.id]}) %>
+    <%= @account.user.email %>
   </div>
 
   <div class="field">
     <%= f.label "Account Number" %>
-    <%= f.text_field :acc_number %>
+    <%= @account.acc_number %>
   </div>
 
   <div class="field">
     <%= f.label :is_closed %>
     <%= f.check_box :is_closed %>
+  </div>
+
+  <div class="field">
+    <%= f.label "balance" %>
+    <%= @account.balance %>
   </div>
 
   <div class="actions">
