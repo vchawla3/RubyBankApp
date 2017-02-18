@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9202e71-3b27-4b1c-bd1a-909bacb66453" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/index.html.erb" afterPath="$PROJECT_DIR$/app/views/users/index.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/users/show.html.erb" afterPath="$PROJECT_DIR$/app/views/users/show.html.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -948,7 +946,7 @@
       <workItem from="1487157748346" duration="3764000" />
       <workItem from="1487163666757" duration="13873000" />
       <workItem from="1487242096838" duration="15330000" />
-      <workItem from="1487365389230" duration="41140000" />
+      <workItem from="1487365389230" duration="41159000" />
     </task>
     <task id="LOCAL-00001" summary="Authentication starting to work">
       <created>1487168859475</created>
@@ -1041,7 +1039,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487451064133</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Users view edit/delete limitation">
+      <created>1487452131537</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1487452131537</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1050,7 +1055,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="127081000" />
+    <option name="totallyTimeSpent" value="127100000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1117,7 +1122,8 @@
     <MESSAGE value="Accounts creation/deletion" />
     <MESSAGE value="Accounts edit" />
     <MESSAGE value="Accounts parameters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Accounts parameters" />
+    <MESSAGE value="Users view edit/delete limitation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Users view edit/delete limitation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
