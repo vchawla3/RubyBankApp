@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>User Name</th>
+      <th>User Email</th>
       <th>Account number</th>
       <th>Is closed</th>
       <th>Balance</th>
@@ -15,6 +16,7 @@
     <% @accounts.each do |account| %>
       <tr>
         <td><%= account.user.name %></td>
+        <td><%= account.user.email %></td>
         <td><%= account.acc_number %></td>
         <td><%= account.is_closed %></td>
         <td><%= account.balance %></td>
