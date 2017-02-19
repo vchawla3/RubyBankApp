@@ -6,7 +6,7 @@
     <% if notice %><div id="notice"><p style="color:darkgreen; font-size: medium;"><%= notice %></p></div><% end %>
     <% if alert %><div id="alert"><p style="color: red; font-size: medium;"><%= alert %></p></div><% end %>
 
-    <%= csrf_meta_tags %><div style="font-size: small; font-weight: bold">
+    <div style="font-size: small; font-weight: bold">
 
     <% if user_signed_in? %>
         <%= link_to "Account(" + current_user.email + ")", edit_user_registration_path, {:style=>"color:#909;"} %>
@@ -16,8 +16,8 @@
     <title>BankApplication</title>
 
 
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag    "application", :media => "all", 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag "application", 'data-turbolinks-eval' => false %>
     <%= csrf_meta_tags %>
   </head>
 
