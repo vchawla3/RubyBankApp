@@ -26,8 +26,12 @@
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
         <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if transaction.status == 'Pending' && current_user.is_admin == false %>
+            <td><%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+        <% if transaction.status == 'Pending' && current_user.is_admin == true %>
+            <td><%= link_to 'Approve/Decline', edit_transaction_path(transaction) %></td>
+        <% end %>
       </tr>
      <% end %>
     <% end %>
@@ -36,4 +40,6 @@
 
 <br>
 
-<%= link_to 'New Transaction', new_transaction_path %>
+<% if current_user.is_admin == false %>
+  <%= link_to 'New Transaction', new_transaction_path(:id => @my_transaction) %>
+<% end %>

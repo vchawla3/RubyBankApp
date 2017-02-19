@@ -12,33 +12,33 @@
   <% end %>
 
   <div class="field">
-    <%= f.label 'Transaction Type' %>
-    <%= select('transaction', 'transtype', ['Deposit', 'Withdraw', 'Send', 'Borrow']) %>
+    <%= f.label "Transaction Type" %>
+    <%= @transaction.transtype %>
   </div>
 
   <div class="field">
-    <%= f.label 'Sending Account' %>
-    <%= select("transaction", "account_id", Account.all.collect{ |c| [ c.acc_number, c.id]}) %>
+    <%= f.label "Sending Account" %>
+    <%= @transaction.account.acc_number %>
   </div>
 
   <div class="field">
-    <%= f.label 'Receiving Account' %>
-    <%= select("transaction", "receiver", Account.all.collect{ |c| [ c.acc_number]}) %>
+    <%= f.label "Receiving Account" %>
+    <%= @transaction.receiver %>
   </div>
 
   <div class="field">
-    <%= f.label 'Transaction Status' %>
+    <%= f.label "Status" %>
     <%= select('transaction', 'status', ['Pending', 'Approved', 'Declined']) %>
   </div>
 
   <div class="field">
-    <%= f.label 'Transaction Amount' %>
-    <%= f.text_field :amount %>
+    <%= f.label "Amount" %>
+    <%= number_to_currency(@transaction.amount) %>
   </div>
 
   <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
+    <%= f.label "Start Date" %>
+    <%= @transaction.start_date %>
   </div>
 
   <div class="actions">

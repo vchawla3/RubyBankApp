@@ -12,12 +12,12 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
-
   end
 
   # GET /transactions/new
   def new
     @transaction = Transaction.new
+    @new_transaction = params[:id]
   end
 
   # GET /transactions/1/edit
@@ -63,7 +63,7 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.destroy
     respond_to do |format|
-      format.html { redirect_to transactions_url, notice: 'Transaction was successfully destroyed.' }
+      format.html { redirect_to transactions_url, notice: 'Transaction was successfully canceled.' }
       format.json { head :no_content }
     end
   end

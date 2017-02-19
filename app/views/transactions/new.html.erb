@@ -2,4 +2,8 @@
 
 <%= render 'form', transaction: @transaction %>
 
-<%= link_to 'Back', transactions_path %>
+<% if current_user.is_admin == true %>
+    <%= link_to 'Back', transactions_path %>
+<% else %>
+    <%= link_to 'Back', accounts_path %>
+<% end %>

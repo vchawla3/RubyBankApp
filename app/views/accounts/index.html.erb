@@ -41,7 +41,7 @@
             <td><%= account.is_closed %></td>
             <td><%= number_to_currency(account.balance) %></td>
             <td><%= link_to 'Show', account %></td>
-            <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number), method: :get %></td>
+            <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number) %></td>
           </tr>
           <% end %>
       <% end %>
