@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= f.label "balance" %>
-    <%= @account.balance %>
+    <%= number_to_currency(@account.balance) %>
   </div>
 
   <div class="actions">

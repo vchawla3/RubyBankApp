@@ -7,7 +7,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
 
       t.string :name
       t.boolean :is_admin, default: false
-      t.boolean :is_user, default: false
+      t.boolean :is_user, default: true
       t.boolean :is_super, default: false
 
       t.timestamps

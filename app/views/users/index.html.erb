@@ -18,7 +18,8 @@
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td><%= link_to 'Show', user %></td>
-            <% if current_user != user and user.email != '' %>
+            <% if current_user != user and user.name != 'Admin' %>
+              <td><%= link_to 'Edit',edit_user_path(user) %></td>
               <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>
@@ -45,7 +46,8 @@
             <td><%= user.name %></td>
             <td><%= user.email %></td>
             <td><%= link_to 'Show', user %></td>
-            <% if current_user != user and user.email != 'admin@ncsu.edu' %>
+            <% if current_user != user and user.email != 'Admin' %>
+                <td><%= link_to 'Edit',edit_user_path(user) %></td>
                 <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             <% end %>
           </tr>

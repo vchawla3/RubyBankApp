@@ -3,33 +3,25 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <br><div class="form-group">
+    <strong>Name:</strong>
+    <%= f.text_field :name, autofocus: true %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :is_user %>
-    <%= f.check_box :is_user, {}, "yes" %>
+  <br><div class="form-group">
+    <strong>Email:</strong>
+    <%= f.email_field :email %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
+  <br><div class="form-group">
+    <strong>Password (6 characters minimum):</strong>
     <%= f.password_field :password, autocomplete: "off" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %>
+  <br><div class="form-group">
+    <strong>Password Confirmation:</strong>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
+  </div><br>
 
   <div class="actions">
     <%= f.submit "Sign up" %>

@@ -12,6 +12,8 @@
     </tr>
   </thead>
 
+  <% if current_user.is_admin == true %>
+
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
@@ -19,13 +21,33 @@
         <td><%= account.user.email %></td>
         <td><%= account.acc_number %></td>
         <td><%= account.is_closed %></td>
-        <td><%= account.balance %></td>
+        <td><%= number_to_currency(account.balance) %></td>
         <td><%= link_to 'Show', account %></td>
         <td><%= link_to 'Edit', edit_account_path(account) %></td>
         <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
+
+  <% else %>
+
+      <tbody>
+      <% @accounts.each do |account| %>
+          <% if current_user.email == account.user.email %>
+          <tr>
+            <td><%= account.user.name %></td>
+            <td><%= account.user.email %></td>
+            <td><%= account.acc_number %></td>
+            <td><%= account.is_closed %></td>
+            <td><%= number_to_currency(account.balance) %></td>
+            <td><%= link_to 'Show', account %></td>
+            <td><%= link_to 'Transactions', transactions_url %></td>
+          </tr>
+          <% end %>
+      <% end %>
+      </tbody>
+
+  <% end %>
 </table>
 
 <br>

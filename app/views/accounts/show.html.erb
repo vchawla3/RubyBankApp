@@ -20,8 +20,9 @@
 
 <p>
   <strong>Balance:</strong>
-  <%= @account.balance %>
+  <%= number_to_currency(@account.balance) %>
 </p>
-
-<%= link_to 'Edit', edit_account_path(@account) %> |
+<% if current_user.is_admin == true %>
+  <%= link_to 'Edit', edit_account_path(@account) %> |
+<% end %>
 <%= link_to 'Back', accounts_path %>
