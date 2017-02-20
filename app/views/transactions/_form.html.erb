@@ -11,37 +11,72 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label 'Transaction Type' %>
-    <%= select('transaction', 'transtype', ['Deposit', 'Withdraw', 'Send', 'Borrow']) %>
-  </div>
+<div class="field">
+  <%= f.label :transtype %>
+  <%= select('transaction', 'transtype', ['Deposit', 'Withdraw', 'Send', 'Borrow']) %>
+</div>
 
+<% if current_user.id == 0 %>
   <div class="field">
     <%= f.label 'Sending Account' %>
-    <%= select("transaction", "account_id", Account.all.collect{ |c| [ c.acc_number, c.id]}) %>
+    <%= select("transaction", "account_id", Account.all.where("'0' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
 
+<% if current_user.id == 1 %>
   <div class="field">
-    <%= f.label 'Receiving Account' %>
-    <%= select("transaction", "receiver", Account.all.collect{ |c| [ c.acc_number]}) %>
+    <%= f.label 'Sending Account' %>
+    <%= select("transaction", "account_id", Account.all.where("'1' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
 
+
+<% if current_user.id == 2 %>
   <div class="field">
-    <%= f.label 'Transaction Status' %>
-    <%= select('transaction', 'status', ['Pending', 'Approved', 'Declined']) %>
+    <%= f.label 'Sending Account' %>
+    <%= select("transaction", "account_id", Account.all.where("'2' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
 
+<% if current_user.id == 3 %>
   <div class="field">
-    <%= f.label 'Transaction Amount' %>
-    <%= f.text_field :amount %>
+     <%= f.label 'Sending Account' %>
+     <%= select("transaction", "account_id", Account.all.where("'3' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
 
+<% if current_user.id == 4 %>
   <div class="field">
-    <%= f.label :start_date %>
-    <%= f.datetime_select :start_date %>
+     <%= f.label 'Sending Account' %>
+     <%= select("transaction", "account_id", Account.all.where("'4' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+<% if current_user.id == 5 %>
+  <div class="field">
+     <%= f.label 'Sending Account' %>
+     <%= select("transaction", "account_id", Account.all.where("'5' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
   </div>
+<% end %>
+
+<% if current_user.id == 6 %>
+  <div class="field">
+     <%= f.label 'Sending Account' %>
+     <%= select("transaction", "account_id", Account.all.where("'6' == user_id").collect{ |c| [ c.acc_number, c.id]}) %>
+  </div>
+<% end %>
+
+<div class="field">
+  <%= f.label 'Receiving Account' %>
+  <%= select("transaction", "receiver", Account.all.collect{ |c| [ c.acc_number]}, {:include_blank => ' '}) %>
+</div>
+
+<div class="field">
+  <%= f.label :amount %>
+  <%= f.text_field :amount %>
+</div>
+
+<div class="actions">
+  <%= f.submit %>
+</div>
 <% end %>

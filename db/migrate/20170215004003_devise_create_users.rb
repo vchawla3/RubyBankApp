@@ -9,6 +9,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.boolean :is_admin, default: false
       t.boolean :is_user, default: true
       t.boolean :is_super, default: false
+      t.string :current_account
+      t.string :current_transaction
 
       t.timestamps
 
@@ -47,6 +49,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
     add_index :users, :is_user
     add_index :users, :is_super
     add_index :users, :name
+    add_index :users, :current_account
+    add_index :users, :current_transaction
     # add_index :users, :confirmation_token,   unique: true
     # add_index :users, :unlock_token,         unique: true
   end

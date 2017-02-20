@@ -7,7 +7,9 @@
   <br><br>
   <%= link_to 'Manage Accounts', accounts_url %>
   <br><br>
-  <%= link_to 'Manage Transactions', transactions_url %>
+  <%= link_to 'View All Transactions', transactions_url %>
+  <br><br>
+  <%= link_to 'Approve/Disapprove Transactions', transactions_path(:id => '1') %>
   <br><br>
   <%= link_to "Edit Profile", edit_user_registration_path %>
 

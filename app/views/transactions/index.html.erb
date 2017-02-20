@@ -10,13 +10,14 @@
       <th>Amount</th>
       <th>Start date</th>
       <th>Effective date</th>
+      <th> </th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
   <% @transactions.each do |transaction| %>
-     <% if current_user.is_admin == true || @my_transaction == transaction.account.acc_number %>
+     <% if current_user.current_account == transaction.account.acc_number || (current_user.current_account != '1' && current_user.is_admin == true) %>
       <tr>
         <td><%= transaction.transtype %></td>
         <td><%= transaction.account.acc_number %></td>
@@ -26,20 +27,31 @@
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
         <td><%= link_to 'Show', transaction %></td>
-        <% if transaction.status == 'Pending' && current_user.is_admin == false %>
-            <td><%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><% if transaction.status == 'Pending' && current_user.is_admin == false %>
+            <%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
         <% if transaction.status == 'Pending' && current_user.is_admin == true %>
-            <td><%= link_to 'Approve/Decline', edit_transaction_path(transaction) %></td>
-        <% end %>
+            <%= link_to 'Approve/Decline', edit_transaction_path(transaction) %>
+        <% end %></td>
       </tr>
      <% end %>
-    <% end %>
+        <% if transaction.status == 'Pending' && current_user.current_account == '1' && current_user.is_admin == true %>
+            <tr><td><%= transaction.transtype %></td>
+            <td><%= transaction.account.acc_number %></td>
+            <td><%= transaction.receiver %></td>
+            <td><%= transaction.status %></td>
+            <td><%= number_to_currency(transaction.amount) %></td>
+            <td><%= transaction.start_date %></td>
+            <td><%= transaction.effective_date %></td>
+            <td><%= link_to 'Show', transaction %></td>
+            <td><%= link_to 'Approve/Decline', edit_transaction_path(transaction) %></td></tr>
+        <% end %>
   </tbody>
+  <% end %>
 </table>
 
-<br>
 
+<br />
 <% if current_user.is_admin == false %>
-  <%= link_to 'New Transaction', new_transaction_path(:id => @my_transaction) %>
+      <%= link_to 'New Transaction', new_transaction_path(:id => (current_user.current_account)) %>
 <% end %>

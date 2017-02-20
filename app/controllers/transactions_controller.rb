@@ -6,18 +6,24 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
     @transactions = Transaction.all
-    @my_transaction = params[:id]
+    current_user.current_account = params[:id]
   end
 
   # GET /transactions/1
   # GET /transactions/1.json
   def show
+    current_user.current_account = @transaction.account.acc_number
+    if @transaction.effective_date == nil && @transaction.status != 'Pending'
+      @transaction.effective_date = Time.now
+      @transaction.save
+    end
   end
 
   # GET /transactions/new
   def new
     @transaction = Transaction.new
     @new_transaction = params[:id]
+    @link_transaction = Account.find_by_acc_number(params[:id])
   end
 
   # GET /transactions/1/edit
@@ -28,9 +34,18 @@ class TransactionsController < ApplicationController
   # POST /transactions.json
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.start_date = Time.now
 
-    if @transaction.amount < 1000
+    if @transaction.amount > 1000 || @transaction.transtype == 'Deposit'
+      @transaction.receiver = @transaction.account.acc_number
+      @transaction.status = 'Pending'
+    else
+      @transaction.status = 'Approved'
       @transaction.effective_date = @transaction.start_date
+    end
+
+    if @transaction.transtype == 'Withdraw'
+      @transaction.receiver = @transaction.account.acc_number
     end
 
     respond_to do |format|
@@ -47,6 +62,7 @@ class TransactionsController < ApplicationController
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
+
     respond_to do |format|
       if @transaction.update(transaction_params)
         format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
@@ -63,7 +79,7 @@ class TransactionsController < ApplicationController
   def destroy
     @transaction.destroy
     respond_to do |format|
-      format.html { redirect_to transactions_url, notice: 'Transaction was successfully canceled.' }
+      format.html { redirect_to transactions_path(:id=> @transaction.account.acc_number), notice: 'Transaction was successfully canceled.' }
       format.json { head :no_content }
     end
   end
@@ -76,6 +92,6 @@ class TransactionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transaction_params
-      params.require(:transaction).permit(:transtype, :account_id, :receiver, :status, :amount, :start_date, :effective_date)
+      params.require(:transaction).permit(:id, :transtype, :account_id, :receiver, :status, :amount, :start_date, :effective_date)
     end
 end

@@ -22,9 +22,10 @@
         <td><%= account.acc_number %></td>
         <td><%= account.is_closed %></td>
         <td><%= number_to_currency(account.balance) %></td>
-        <td><%= link_to 'Show', account %></td>
-        <td><%= link_to 'Edit', edit_account_path(account) %></td>
-        <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'View', account %></td>
+        <td><%= link_to 'Open/Close', edit_account_path(account) %></td>
+        <td><%= link_to 'Delete', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -40,16 +41,18 @@
             <td><%= account.acc_number %></td>
             <td><%= account.is_closed %></td>
             <td><%= number_to_currency(account.balance) %></td>
-            <td><%= link_to 'Show', account %></td>
+            <td><%= link_to 'View', account %></td>
             <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number) %></td>
           </tr>
           <% end %>
       <% end %>
       </tbody>
+      <br>
+
+          <%= link_to 'New Account', new_account_path %>
 
   <% end %>
+
 </table>
 
-<br>
 
-<%= link_to 'New Account', new_account_path %>

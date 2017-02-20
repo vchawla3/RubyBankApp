@@ -3,24 +3,40 @@
   <%= @transaction.transtype %>
 </p>
 
-<p>
-  <strong>Sender:</strong>
-  <%= @transaction.account.acc_number %>
-</p>
+<% if @transaction.transtype == 'Deposit' %>
+  <p>
+    <strong>Receiving Account:</strong>
+    <%= @transaction.receiver %>
+  </p>
+<% end %>
+
+<% if @transaction.transtype == 'Withdraw' %>
+  <p>
+    <strong>Withdrawing Account:</strong>
+    <%= @transaction.account.acc_number %>
+  </p>
+<% end %>
+
+<% if @transaction.transtype == 'Send' || @transaction.transtype == 'Borrow' %>
+  <p>
+    <strong>Sending Account:</strong>
+    <%= @transaction.account.acc_number %>
+  </p>
+
+  <p>
+    <strong>Receiving Account:</strong>
+    <%= @transaction.receiver %>
+  </p>
+<% end %>
 
 <p>
-  <strong>Receiver:</strong>
-  <%= @transaction.receiver %>
-</p>
-
-<p>
-  <strong>Status:</strong>
+  <strong>Transaction Status:</strong>
   <%= @transaction.status %>
 </p>
 
 <p>
-  <strong>Amount:</strong>
-  <%= @transaction.amount %>
+  <strong>Transaction Amount:</strong>
+  <%= number_to_currency(@transaction.amount) %>
 </p>
 
 <p>
@@ -33,8 +49,4 @@
   <%= @transaction.effective_date %>
 </p>
 
-<% if current_user.is_admin == true %>
-  <%= link_to 'Back', transactions_path %>
-<% else %>
-    <%= link_to 'Back', accounts_path %>
-<% end %>
+<%= link_to 'Back', transactions_path(:id => current_user.current_account) %>

@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20170215004003) do
     t.boolean  "is_admin",               default: false
     t.boolean  "is_user",                default: true
     t.boolean  "is_super",               default: false
+    t.string   "current_account"
+    t.string   "current_transaction"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "reset_password_token"
@@ -59,6 +61,8 @@ ActiveRecord::Schema.define(version: 20170215004003) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.index ["current_account"], name: "index_users_on_current_account"
+    t.index ["current_transaction"], name: "index_users_on_current_transaction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["is_admin"], name: "index_users_on_is_admin"
     t.index ["is_super"], name: "index_users_on_is_super"

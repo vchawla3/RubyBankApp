@@ -3,7 +3,7 @@
 <%= render 'form', transaction: @transaction %>
 
 <% if current_user.is_admin == true %>
-    <%= link_to 'Back', transactions_path %>
+    <%= link_to 'Back', transactions_url %>
 <% else %>
     <%= link_to 'Back', accounts_path %>
 <% end %>
