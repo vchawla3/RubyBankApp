@@ -6,8 +6,8 @@
 <table>
   <thead>
     <tr>
-      <th>Friend1</th>
-      <th>Friend2</th>
+      <th>Name</th>
+      <th>Email</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -28,3 +28,21 @@
 <br>
 
 <%= link_to 'New Friend', new_friend_path %>
+
+<!-- =start
+<tbody>
+<% results = ActiveRecord::Base.connection.execute("SELECT friend1 FROM friends WHERE friend2=\'#{current_user.id}\'") %>
+<% results2 = ActiveRecord::Base.connection.execute("SELECT friend2 FROM friends WHERE friend1=\'#{current_user.id}\'") %>
+<% results += results2 %>
+<% results.each do |user| %>
+    <% friend = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE id=\'#{user[0]}\'") %>
+    <tr>
+      <td><%= friend[0]["name"] %></td>
+      <td><%= friend[0]["email"] %></td>
+      <td><%= link_to 'Show', friend %></td>
+      <td><%= link_to 'Edit', edit_friend_path(friend) %></td>
+      <td><%= link_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+<% end %>
+</tbody>
+=end --->

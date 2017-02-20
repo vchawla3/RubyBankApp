@@ -26,14 +26,30 @@ class FriendsController < ApplicationController
   # POST /friends.json
   def create
     @friend = Friend.new(friend_params)
+    @friend['friend2'] = current_user.id
+    orig = @friend['friend1']
+    results = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE email=\'#{@friend['friend1']}\'")
+    if(results.present?)
+      @friend['friend1'] = results[0][0]
+    else
+      @friend['friend1'] = "Database"
+    end
+
+    if(orig == '')
+      @friend['friend1'] = orig
+    end
+    if(@friend['friend1'] == @friend['friend2'] || @friend['friend1'] == 0 )
+      @friend['friend1'] = 'Repeat'
+    end
 
     respond_to do |format|
-      if @friend.save
-        format.html { redirect_to @friend, notice: 'Friend was successfully created.' }
+      if( @friend.save)
+        format.html { redirect_to @friend, notice: 'Friend was successfully added.' }
         format.json { render :show, status: :created, location: @friend }
       else
         format.html { render :new }
         format.json { render json: @friend.errors, status: :unprocessable_entity }
+        @friend['friend1'] = orig
       end
     end
   end
@@ -70,6 +86,6 @@ class FriendsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def friend_params
-      params.require(:friend).permit(:friend1, :friend2)
+      params.require(:friend).permit(:friend1)
     end
 end
