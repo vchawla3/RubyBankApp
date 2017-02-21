@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e9202e71-3b27-4b1c-bd1a-909bacb66453" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/transactions/new.html.erb" afterPath="$PROJECT_DIR$/app/views/transactions/new.html.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/transactions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/transactions_controller.rb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -70,7 +70,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="new.html.erb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="new.html.erb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/transactions/new.html.erb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
@@ -130,11 +130,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="transactions_controller.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="transactions_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/transactions_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+            <state relative-caret-position="359">
+              <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -214,10 +214,10 @@
         <option value="$PROJECT_DIR$/app/views/transactions/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/transactions/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/admins/index.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/transactions_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/friends_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/accounts/index.html.erb" />
         <option value="$PROJECT_DIR$/app/views/transactions/new.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/transactions_controller.rb" />
       </list>
     </option>
   </component>
@@ -853,7 +853,7 @@
       <workItem from="1487365389230" duration="80561000" />
       <workItem from="1487501466655" duration="25193000" />
       <workItem from="1487579120538" duration="38887000" />
-      <workItem from="1487692046110" duration="6365000" />
+      <workItem from="1487692046110" duration="6527000" />
     </task>
     <task id="LOCAL-00001" summary="Authentication starting to work">
       <created>1487168859475</created>
@@ -1051,7 +1051,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487704223812</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Bank Transaction Return">
+      <created>1487704700777</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1487704700777</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1060,7 +1067,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236947000" />
+    <option name="totallyTimeSpent" value="237109000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1139,7 +1146,8 @@
     <MESSAGE value="Quick fix for new transaction back button when adding new transaction directly from user menu" />
     <MESSAGE value="Quick friends name search fix" />
     <MESSAGE value="Error checking" />
-    <option name="LAST_COMMIT_MESSAGE" value="Error checking" />
+    <MESSAGE value="Bank Transaction Return" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bank Transaction Return" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1449,14 +1457,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/transactions_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="9" lean-forward="false" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Ruby23-x64/lib/ruby/gems/2.3.0/gems/devise-4.2.0/app/controllers/devise/registrations_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -1509,6 +1509,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="9" lean-forward="true" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/transactions_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
           <folding />
         </state>
       </provider>

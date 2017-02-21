@@ -39,7 +39,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new(transaction_params)
     @transaction.start_date = Time.now
 
-    if @transaction.amount > 1000 || @transaction.transtype == 'Deposit'
+    if (@transaction.amount > 1000 && @transaction.transtype == 'Withdraw') || @transaction.transtype == 'Deposit'
       @transaction.receiver = @transaction.account.acc_number
       @transaction.status = 'Pending'
     else
