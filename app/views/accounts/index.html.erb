@@ -48,9 +48,12 @@
       <% end %>
       </tbody>
 
-      <br>
-      <%= link_to 'New Account', new_account_path %>
 
   <% end %>
 
 </table>
+
+<% if current_user.is_admin == true %>
+  <br>
+  <%= link_to 'New Account', new_account_path %>
+<% end %>
