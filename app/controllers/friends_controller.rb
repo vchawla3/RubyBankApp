@@ -29,10 +29,15 @@ class FriendsController < ApplicationController
     @friend['friend2'] = current_user.id
     orig = @friend['friend1']
     results = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE email=\'#{@friend['friend1']}\'")
+    results2 = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE name=\'#{@friend['friend1']}\'")
     if(results.present?)
       @friend['friend1'] = results[0][0]
     else
-      @friend['friend1'] = "Database"
+      if(results2.present?)
+        @friend['friend1'] = results2[0][0]
+      else
+        @friend['friend1'] = "Database"
+      end
     end
 
     if(orig == '')
