@@ -14,13 +14,17 @@
 
   <tbody>
     <% @friends.each do |friend| %>
+      <% if(friend.friend1.to_i == current_user.id.to_i || friend.friend2.to_i == current_user.id.to_i) %>
+         <% person = (friend.friend1.to_i == current_user.id.to_i)? friend.friend2 : friend.friend1 %>
+         <% info = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE id=\'#{person.to_i}\'") %>
       <tr>
-        <td><%= friend.friend1 %></td>
-        <td><%= friend.friend2 %></td>
+        <td><%= info[0]["name"] %></td>
+        <td><%= info[0]["email"] %></td>
         <td><%= link_to 'Show', friend %></td>
         <td><%= link_to 'Edit', edit_friend_path(friend) %></td>
         <td><%= link_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
@@ -28,21 +32,3 @@
 <br>
 
 <%= link_to 'New Friend', new_friend_path %>
-
-<!-- =start
-<tbody>
-<% results = ActiveRecord::Base.connection.execute("SELECT friend1 FROM friends WHERE friend2=\'#{current_user.id}\'") %>
-<% results2 = ActiveRecord::Base.connection.execute("SELECT friend2 FROM friends WHERE friend1=\'#{current_user.id}\'") %>
-<% results += results2 %>
-<% results.each do |user| %>
-    <% friend = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE id=\'#{user[0]}\'") %>
-    <tr>
-      <td><%= friend[0]["name"] %></td>
-      <td><%= friend[0]["email"] %></td>
-      <td><%= link_to 'Show', friend %></td>
-      <td><%= link_to 'Edit', edit_friend_path(friend) %></td>
-      <td><%= link_to 'Destroy', friend, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-<% end %>
-</tbody>
-=end --->
