@@ -22,7 +22,10 @@ class TransactionsController < ApplicationController
   # GET /transactions/new
   def new
     @transaction = Transaction.new
-    @new_transaction = params[:id]
+    @current_account = User.find_by(:id => (current_user.id))
+    @current_accounts = Account.where(:user_id => @current_account)
+
+    current_user.current_account = params[:id] # used by "back" new.html.erb to return to calling account
     @link_transaction = Account.find_by_acc_number(params[:id])
   end
 

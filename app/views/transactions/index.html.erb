@@ -17,7 +17,7 @@
 
   <tbody>
   <% @transactions.each do |transaction| %>
-     <% if current_user.current_account == transaction.account.acc_number || (current_user.current_account != '1' && current_user.is_admin == true) %>
+     <% if current_user.current_account == transaction.account.acc_number || current_user.current_account == '0' %>
       <tr>
         <td><%= transaction.transtype %></td>
         <td><%= transaction.account.acc_number %></td>
@@ -33,8 +33,8 @@
         <% if transaction.status == 'Pending' && current_user.is_admin == true %>
             <%= link_to 'Approve/Decline', edit_transaction_path(transaction) %>
         <% end %></td>
-      </tr>
-     <% end %>
+       </tr>
+       <% end %>
         <% if transaction.status == 'Pending' && current_user.current_account == '1' && current_user.is_admin == true %>
             <tr><td><%= transaction.transtype %></td>
             <td><%= transaction.account.acc_number %></td>
@@ -50,8 +50,10 @@
   <% end %>
 </table>
 
-
 <br />
 <% if current_user.is_admin == false %>
       <%= link_to 'New Transaction', new_transaction_path(:id => (current_user.current_account)) %>
 <% end %>
+
+<br /><br />
+<%= link_to 'Return to Accounts', accounts_url %>
