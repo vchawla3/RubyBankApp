@@ -42,6 +42,18 @@ class TransactionsController < ApplicationController
     if (@transaction.amount > 1000 && @transaction.transtype == 'Withdraw') || @transaction.transtype == 'Deposit'
       @transaction.receiver = @transaction.account.acc_number
       @transaction.status = 'Pending'
+
+
+      # only save the transaction b/c pending, no account balance edited
+      respond_to do |format|
+        if @transaction.save
+            format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+            format.json { render :show, status: :created, location: @transaction }
+        else
+          format.html { render :new }
+          format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        end
+      end
     else
       @transaction.status = 'Approved'
       @transaction.effective_date = @transaction.start_date
@@ -57,20 +69,25 @@ class TransactionsController < ApplicationController
         bal+= @transaction.amount
       end
       @account.balance= bal
-      @account.save
-    end
 
-    if @transaction.transtype == 'Withdraw'
-      @transaction.receiver = @transaction.account.acc_number
-    end
+      # save the account, make sure it no error (balance < 0), then save the transaction!
+      respond_to do |format|
+        if @account.save
+          if @transaction.save
+            format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
+            format.json { render :show, status: :created, location: @transaction }
+          else
+            format.html { render :new }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          end
+        else
+          #format.html { render :new }
+          #format.json { render json: @friend.errors, status: :unprocessable_entity }
 
-    respond_to do |format|
-      if @transaction.save
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-        format.json { render :show, status: :created, location: @transaction }
-      else
-        format.html { render :new }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          #not sure if we want this, will take to specific account page with error at top
+          format.json { render json: @account.errors, status: :unprocessable_entity }
+          format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+        end
       end
     end
   end
@@ -78,14 +95,50 @@ class TransactionsController < ApplicationController
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
+    @transaction.effective_date = Time.now
+    @account = nil
+    bal = 0
+    if @transaction.status == 'Approved'
+      #update account info
+      @account = Account.find_by_acc_number(@transaction.receiver)
+      bal = @account.balance
+      if @transaction.transtype == 'Deposit'
+        #put money into receiving acct
+        bal+= @transaction.amount
 
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
-        format.json { render :show, status: :ok, location: @transaction }
-      else
-        format.html { render :edit }
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
+      elsif @transaction.transtype == 'Withdraw'
+        #take money from receiving acct
+        bal-= @transaction.amount
+      end
+      @account.balance=bal
+
+      #right now, if account doesn't save, neither will transaction and it will redirect to account page with alert
+      respond_to do |format|
+        if @account.save
+          if @transaction.update(transaction_params)
+            format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+            format.json { render :show, status: :ok, location: @transaction }
+          else
+            format.html { render :edit }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          end
+        else
+          #not sure if we want this, will take to spefic account page with error at top
+          format.json { render json: @account.errors, status: :unprocessable_entity }
+          format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+        end
+      end
+    end
+    if @transaction.status == 'Pending'
+      #do nothing?
+      respond_to do |format|
+        if @transaction.update(transaction_params)
+          format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
+          format.json { render :show, status: :ok, location: @transaction }
+        else
+          format.html { render :edit }
+          format.json { render json: @transaction.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
