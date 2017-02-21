@@ -95,6 +95,9 @@ class TransactionsController < ApplicationController
   # PATCH/PUT /transactions/1
   # PATCH/PUT /transactions/1.json
   def update
+    @transaction2 = Transaction.new(transaction_params)
+    @transaction.status=@transaction2.status
+
     @transaction.effective_date = Time.now
     @account = nil
     bal = 0
