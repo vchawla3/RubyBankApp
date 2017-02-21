@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e9202e71-3b27-4b1c-bd1a-909bacb66453" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/accounts/index.html.erb" afterPath="$PROJECT_DIR$/app/views/accounts/index.html.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -836,7 +835,7 @@
       <workItem from="1487365389230" duration="80561000" />
       <workItem from="1487501466655" duration="25193000" />
       <workItem from="1487579120538" duration="38887000" />
-      <workItem from="1487692046110" duration="5748000" />
+      <workItem from="1487692046110" duration="5896000" />
     </task>
     <task id="LOCAL-00001" summary="Authentication starting to work">
       <created>1487168859475</created>
@@ -1020,7 +1019,14 @@
       <option name="project" value="LOCAL" />
       <updated>1487699594504</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Error checking">
+      <created>1487704081873</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1487704081873</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1029,7 +1035,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236330000" />
+    <option name="totallyTimeSpent" value="236478000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1107,7 +1113,8 @@
     <MESSAGE value="Selection box filtering for transactions working" />
     <MESSAGE value="Quick fix for new transaction back button when adding new transaction directly from user menu" />
     <MESSAGE value="Quick friends name search fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick friends name search fix" />
+    <MESSAGE value="Error checking" />
+    <option name="LAST_COMMIT_MESSAGE" value="Error checking" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
