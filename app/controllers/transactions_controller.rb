@@ -129,7 +129,7 @@ class TransactionsController < ApplicationController
         end
       end
     end
-    if @transaction.status == 'Pending'
+    if @transaction.status == 'Declined'
       #do nothing?
       respond_to do |format|
         if @transaction.update(transaction_params)
@@ -140,6 +140,10 @@ class TransactionsController < ApplicationController
           format.json { render json: @transaction.errors, status: :unprocessable_entity }
         end
       end
+    end
+
+    if @transaction.status == 'Pending'
+        redirect_to transactions_path(:id => '1')
     end
   end
 
