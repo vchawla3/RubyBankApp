@@ -2,4 +2,6 @@
 
 <%= render 'form', transaction: @transaction %>
 
-<%= link_to 'Back', transactions_path(:id => (current_user.current_account)) %>
+<% if params[:id] != nil %>
+    <%= link_to 'Back', transactions_path(:id => (current_user.current_account)) %>
+<% end %>
