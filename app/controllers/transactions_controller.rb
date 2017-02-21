@@ -45,6 +45,19 @@ class TransactionsController < ApplicationController
     else
       @transaction.status = 'Approved'
       @transaction.effective_date = @transaction.start_date
+
+      @account = Account.find_by_acc_number(@transaction.account.acc_number)
+      bal = @account.balance
+
+      if @transaction.transtype == 'Withdraw'
+        bal-= @transaction.amount
+      end
+
+      if (@transaction.transtype == 'Deposit')
+        bal+= @transaction.amount
+      end
+      @account.balance= bal
+      @account.save
     end
 
     if @transaction.transtype == 'Withdraw'
