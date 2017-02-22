@@ -55,13 +55,19 @@ class AccountsController < ApplicationController
   # PATCH/PUT /accounts/1
   # PATCH/PUT /accounts/1.json
   def update
-    respond_to do |format|
-      if @account.update(account_params)
-        format.html { redirect_to @account, notice: 'Account status was successfully changed.' }
-        format.json { render :show, status: :ok, location: @account }
-      else
-        format.html { render :edit }
-        format.json { render json: @account.errors, status: :unprocessable_entity }
+
+    @open_transactions = Transaction.where(:account_id => @account, :status => 'Pending')
+    if @open_transactions.present?
+      redirect_to accounts_url, alert: 'Account has open transactions and cannot be closed.'
+    else
+      respond_to do |format|
+        if @account.update(account_params)
+          format.html { redirect_to @account, notice: 'Account status was successfully changed.' }
+          format.json { render :show, status: :ok, location: @account }
+        else
+          format.html { render :edit }
+          format.json { render json: @account.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
