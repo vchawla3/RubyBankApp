@@ -25,6 +25,7 @@ class TransactionsController < ApplicationController
     @current_account = User.find_by(:id => (current_user.id))
     @current_accounts = Account.where(:user_id => @current_account)
     current_user.current_transaction = params[:event]
+    @my_selection = params[:id]
 
     results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'")
     accounts = results1.collect{ |x| x['acc_number'] }

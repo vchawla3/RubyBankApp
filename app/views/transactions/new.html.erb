@@ -1,7 +1,11 @@
-<h1>New Transaction</h1>
+<% if params[:event] == nil %>
+    <h1>Please Select Transaction</h1>
+    <%= render 'menu', transaction: @transaction %>
+<% else %>
+    <h1>New Transaction</h1>
+    <%= render 'form', transaction: @transaction %>
+<% end %>
 
-<%= render 'form', transaction: @transaction %>
-
-<% if params[:id] != nil %>
-    <%= link_to 'Back', transactions_path(:id => (current_user.current_account)) %>
+<% if params[:id] != nil && params[:event] != nil %>
+    <%= link_to 'Back', transactions_path(:id => current_user.current_account, :event => current_user.current_transaction) %>
 <% end %>

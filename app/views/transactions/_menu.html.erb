@@ -1,0 +1,22 @@
+<%= form_for(transaction) do |f| %>
+  <% if transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+
+      <ul>
+      <% transaction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <br />
+    <table>
+    <tr>
+      <td><%= link_to 'Withdraw', new_transaction_path(:id => @my_selection, :event => "withdraw") %> </td>
+      <td><%= link_to 'Deposit', new_transaction_path(:id => @my_selection, :event => "deposit") %> </td>
+      <td><%= link_to 'Send', new_transaction_path(:id => @my_selection, :event => "send") %> </td>
+      <td><%= link_to 'Borrow', new_transaction_path(:id => @my_selection, :event => "borrow") %> </td>
+    </tr>
+    </table>
+<% end %>
