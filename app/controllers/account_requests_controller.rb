@@ -15,7 +15,7 @@ class AccountRequestsController < ApplicationController
   # GET /account_requests/new
   def new
     @account_request = AccountRequest.new
-    @numRequests = AccountRequest.count_by_sql "SELECT COUNT(*) FROM account_requests a WHERE a.userid = #{current_user.id}"
+    @numRequests = AccountRequest.count_by_sql "SELECT COUNT(*) FROM account_requests a WHERE a.userid = #{current_user.id} AND a.created = 'f'"
   end
 
   # GET /account_requests/1/edit
