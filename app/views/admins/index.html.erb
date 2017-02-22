@@ -15,10 +15,15 @@
   <br><br>
   <%= link_to "Edit Profile", edit_user_registration_path %>
 
-<% else %>
-
+<% end %>
+<% if current_user.is_user == true %>
+  <% if current_user.is_admin == false %>
   <h1>Welcome to the User Menu</h1>
   <br>
+  <% else %>
+    <br><br>
+    <h3>User options:</h3>
+  <% end %>
   <%= link_to 'My Accounts', accounts_url %>
   <br><br>
   <%= link_to 'New Bank Transaction', new_transaction_url %>
