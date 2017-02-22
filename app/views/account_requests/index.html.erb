@@ -15,7 +15,7 @@
     <% @account_requests.each do |account_request| %>
       <% if !account_request.created %>
       <tr>
-        <td><%= account_request.userid %></td>
+        <td><%= User.find_by_id(account_request.userid).name %></td>
         <td><%= account_request.created %></td>
         <td><%= link_to 'Create', new_account_path(:userid => account_request.userid, :id => '1')%></td>
       </tr>

@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To Log into the system as the SuperAdmin (who cannot be deleted) use these credentials:
+email: admin@ncsu.edu
+password: password
 
-Things you may want to cover:
+To create a new user, use the sign up button the login page!
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Enjoy!

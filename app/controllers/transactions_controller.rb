@@ -87,39 +87,78 @@ class TransactionsController < ApplicationController
       puts "TRANSACTION STATUS:"
       puts transaction_params[:account_id]
       puts transaction_params[:receiver]
+      puts transaction_params[:transtype]
       acc_number_arr = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE id='#{transaction_params[:account_id]}'")
       @transaction.status = 'Approved'
       @transaction.effective_date = @transaction.start_date
 
+
       @account = Account.find_by_acc_number(acc_number_arr[0][0])
       bal = @account.balance
 
-      if @transaction.transtype == 'Withdraw'
+      if transaction_params[:transtype] == 'Send'
+        #receiving account
+        @accountRec = Account.find_by_acc_number(transaction_params[:receiver])
+        balRec = @accountRec.balance
+
+        #take money from sender
         bal-= @transaction.amount
-      end
+        @account.balance= bal
 
-      if @transaction.transtype == 'Deposit'
-        bal+= @transaction.amount
-      end
-      @account.balance= bal
+        #give money to rec
+        balRec+= @transaction.amount
+        @accountRec.balance= balRec
 
-      # save the account, make sure it no error (balance < 0), then save the transaction!
-      respond_to do |format|
-        if @account.save
-          if @transaction.save
-            format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
-            format.json { render :show, status: :created, location: @transaction }
+        respond_to do |format|
+          if @account.save
+            #first account had enough money, now just update second account. NO if needed cuz adding money should always work
+            @accountRec.save
+            if @transaction.save
+              format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
+              format.json { render :show, status: :created, location: @transaction }
+            else
+              format.html { render :new }
+              format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            end
           else
-            format.html { render :new }
-            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            #if the first account cannot be saved AKA it doesn't have the money, then this error will throw and show up
+            format.json { render json: @account.errors, status: :unprocessable_entity }
+            format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
           end
-        else
-          #format.html { render :new }
-          #format.json { render json: @friend.errors, status: :unprocessable_entity }
+        end
+      elsif transaction_params[:transtype] == 'Borrow'
+        #handle differently
 
-          #not sure if we want this, will take to specific account page with error at top
-          format.json { render json: @account.errors, status: :unprocessable_entity }
-          format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+
+      else
+        #not a send or borrow, just deal with 1 account then
+        if @transaction.transtype == 'Withdraw'
+          bal-= @transaction.amount
+        end
+
+        if @transaction.transtype == 'Deposit'
+          bal+= @transaction.amount
+        end
+        @account.balance= bal
+
+        # save the account, make sure it no error (balance < 0), then save the transaction!
+        respond_to do |format|
+          if @account.save
+            if @transaction.save
+              format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
+              format.json { render :show, status: :created, location: @transaction }
+            else
+              format.html { render :new }
+              format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            end
+          else
+            #format.html { render :new }
+            #format.json { render json: @friend.errors, status: :unprocessable_entity }
+
+            #not sure if we want this, will take to specific account page with error at top
+            format.json { render json: @account.errors, status: :unprocessable_entity }
+            format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+          end
         end
       end
     end
