@@ -10,28 +10,90 @@
       </ul>
     </div>
   <% end %>
+    <% if current_user.current_transaction == "withdraw" %>
+      <%= "New Withdrawl" %>
+        <%= f.hidden_field :transtype, :value => "Withdraw" %>
 
-<div class="field">
-  <%= f.label :transtype %>
-  <%= select('transaction', 'transtype', ['Deposit', 'Withdraw', 'Send', 'Borrow']) %>
-</div>
+      <div class="field">
+         <%= f.label 'Account' %>
+         <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+      </div>
 
-<div class="field">
-   <%= f.label 'Sending Account' %>
-   <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
-</div>
+      <div class="field">
+        <%= f.label :amount %>
+        <%= f.text_field :amount %>
+      </div>
 
-<div class="field">
-  <%= f.label 'Receiving Account' %>
-  <%= select("transaction", "receiver", @current_accounts.all.collect{ |c| [ c.acc_number]}, {:include_blank => ' '}) %>
-</div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    <% elsif current_user.current_transaction == "deposit" %>
+        <%= "New Deposit" %>
 
-<div class="field">
-  <%= f.label :amount %>
-  <%= f.text_field :amount %>
-</div>
+        <%= f.hidden_field :transtype, :value => "Deposit" %>
 
-<div class="actions">
-  <%= f.submit %>
-</div>
+        <% results1 = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
+        <div class="field">
+          <%= f.label 'Account' %>
+          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label :amount %>
+          <%= f.text_field :amount %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+    <% elsif current_user.current_transaction == "send" %>
+        <%= "New Send Request" %>
+
+        <%= f.hidden_field :transtype, :value => "Send" %>
+
+        <div class="field">
+          <%= f.label 'Sending Account' %>
+          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label 'Receiving Account' %>
+          <%= select("transaction", "receiver", @current_accounts.all.collect{ |c| [ c.acc_number]}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label :amount %>
+          <%= f.text_field :amount %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+
+    <% elsif current_user.current_transaction == "borrow" %>
+        <%= "New Borrow Request" %>
+
+        <%= f.hidden_field :transtype, :value => "Deposit" %>
+
+        <div class="field">
+          <%= f.label 'Account to request money from' %>
+          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label 'Receiving Account' %>
+          <%= select("transaction", "receiver", @current_accounts.all.collect{ |c| [ c.acc_number]}) %>
+        </div>
+
+        <div class="field">
+          <%= f.label :amount %>
+          <%= f.text_field :amount %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+    <% else %>
+        <%= "An error has occurred" %>
+    <% end %>
 <% end %>

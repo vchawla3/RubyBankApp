@@ -24,6 +24,32 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.new
     @current_account = User.find_by(:id => (current_user.id))
     @current_accounts = Account.where(:user_id => @current_account)
+    current_user.current_transaction = params[:event]
+
+    results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'")
+    accounts = results1.collect{ |x| x['acc_number'] }
+
+    puts "\n\n\nResults:"
+    puts @current_accounts.all
+    puts @current_accounts.all.collect{ |c| [ c.acc_number, c.id ]}
+    puts @current_accounts.all[0].id.is_a? Integer
+    puts results1
+    puts accounts
+    puts results1.collect{ |c| [ c["acc_number"], c["id"]]}
+    puts "\n\n\n"
+    #results2 = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE (user_id=\'#{current_user.id}\' AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f'))")
+    results2 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE (user_id='#{current_user.id}' AND is_closed='f') OR (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f')")
+    names = results2.collect{ |x| ActiveRecord::Base.connection.execute("SELECT name FROM users WHERE id='#{x['user_id']}'") }
+    puts results2
+    puts names
+    #names.zip(results2).each{ |name, result|
+    #  puts name[0]['name']
+    #  puts result['acc_number']
+    #}
+
+    accounts2 = names.zip(results2).collect{ |name, result| "#{name[0]['name'].to_s}-#{result['acc_number'].to_s}" }
+    puts accounts2
+    puts "\n\n\n"
 
     current_user.current_account = params[:id] # used by "back" new.html.erb to return to calling account
     @link_transaction = Account.find_by_acc_number(params[:id])
@@ -40,6 +66,8 @@ class TransactionsController < ApplicationController
     @transaction.start_date = Time.now
 
     if (@transaction.amount > 1000 && @transaction.transtype == 'Withdraw') || @transaction.transtype == 'Deposit'
+      puts "TRANSACTION:"
+      puts @transaction.account
       @transaction.receiver = @transaction.account.acc_number
       @transaction.status = 'Pending'
 

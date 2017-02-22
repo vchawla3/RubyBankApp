@@ -42,7 +42,10 @@
             <td><%= account.is_closed %></td>
             <td><%= number_to_currency(account.balance) %></td>
             <td><%= link_to 'View', account %></td>
-            <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number) %></td>
+            <td><%= link_to 'Withdraw', new_transaction_path(:id => account.acc_number, :event => "withdraw") %> </td>
+            <td><%= link_to 'Deposit', new_transaction_path(:id => account.acc_number, :event => "deposit") %> </td>
+            <td><%= link_to 'Send', new_transaction_path(:id => account.acc_number, :event => "send") %> </td>
+            <td><%= link_to 'Borrow', new_transaction_path(:id => account.acc_number, :event => "borrow") %> </td>
           </tr>
           <% end %>
       <% end %>
