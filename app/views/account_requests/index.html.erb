@@ -17,7 +17,7 @@
       <tr>
         <td><%= account_request.userid %></td>
         <td><%= account_request.created %></td>
-        <td><%= link_to 'Create', new_account_path(:userid => account_request.userid)%></td>
+        <td><%= link_to 'Create', new_account_path(:userid => account_request.userid, :id => '1')%></td>
       </tr>
       <% end %>
     <% end %>
@@ -26,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Account Request', new_account_request_path %>
+<% if current_user.is_admin == false %>
+    <%= link_to 'New Account Request', new_account_request_url %>
+<% end %>

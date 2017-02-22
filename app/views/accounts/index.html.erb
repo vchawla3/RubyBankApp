@@ -57,6 +57,6 @@
 </table>
 
 <% if current_user.is_admin == true %>
-  <br>
-  <%= link_to 'New Account', new_account_path %>
+    <br>
+    <%= link_to 'New Account', new_account_path(:id => '0') %>
 <% end %>

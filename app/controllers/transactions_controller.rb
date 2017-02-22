@@ -93,7 +93,7 @@ class TransactionsController < ApplicationController
         bal-= @transaction.amount
       end
 
-      if (@transaction.transtype == 'Deposit')
+      if @transaction.transtype == 'Deposit'
         bal+= @transaction.amount
       end
       @account.balance= bal

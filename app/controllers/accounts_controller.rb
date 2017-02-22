@@ -15,6 +15,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts/new
   def new
+    @navigation = params[:id]
     @account = Account.new
     @req = User.find_by(:id => params[:userid])
     if !@req.nil?
