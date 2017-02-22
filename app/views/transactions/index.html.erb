@@ -17,7 +17,7 @@
 
   <tbody>
   <% @transactions.each do |transaction| %>
-     <% if current_user.current_account == transaction.account.acc_number || current_user.current_account == '0' %>
+     <% if current_user.current_account == transaction.account.acc_number || current_user.current_account == transaction.receiver || current_user.current_account == '0' %>
       <tr>
         <td><%= transaction.transtype %></td>
         <td><%= transaction.account.acc_number %></td>
