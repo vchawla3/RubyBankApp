@@ -10,32 +10,34 @@
       </ul>
     </div>
   <% end %>
+  <br>
     <% if current_user.current_transaction == "withdraw" %>
-      <%= "New Withdrawl" %>
+      <h3><%= "Withdrawl:" %></h3>
         <%= f.hidden_field :transtype, :value => "Withdraw" %>
 
-      <div class="field">
-         <%= f.label 'Account' %>
-         <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
-      </div>
+        <% results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
+        <div class="field">
+          <%= f.label 'Account' %>
+          <%= select("transaction", "account_id", results1.collect{ |c| [ c["acc_number"].to_i, c["id"].to_i]}) %>
+        </div>
 
-      <div class="field">
-        <%= f.label :amount %>
-        <%= f.text_field :amount %>
-      </div>
+        <div class="field">
+          <%= f.label :amount %>
+          <%= f.text_field :amount %>
+        </div>
 
-      <div class="actions">
-        <%= f.submit %>
-      </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
     <% elsif current_user.current_transaction == "deposit" %>
-        <%= "New Deposit" %>
+        <h3><%= "Deposit:" %></h3>
 
         <%= f.hidden_field :transtype, :value => "Deposit" %>
 
-        <% results1 = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
+        <% results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
         <div class="field">
           <%= f.label 'Account' %>
-          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+          <%= select("transaction", "account_id", results1.collect{ |c| [ c["acc_number"].to_i, c["id"].to_i]}) %>
         </div>
 
         <div class="field">
@@ -47,18 +49,23 @@
           <%= f.submit %>
         </div>
     <% elsif current_user.current_transaction == "send" %>
-        <%= "New Send Request" %>
+        <h3><%= "Send Money:" %></h3>
 
         <%= f.hidden_field :transtype, :value => "Send" %>
 
+        <% results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
+
         <div class="field">
           <%= f.label 'Sending Account' %>
-          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+          <%= select("transaction", "account_id", results1.collect{ |c| [ c["acc_number"], c["id"]]}) %>
         </div>
+
+        <% results2 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE (user_id='#{current_user.id}' AND is_closed='f') OR (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f')") %>
+        <% names = results2.collect{ |x| ActiveRecord::Base.connection.execute("SELECT name FROM users WHERE id='#{x['user_id']}'") } %>
 
         <div class="field">
           <%= f.label 'Receiving Account' %>
-          <%= select("transaction", "receiver", @current_accounts.all.collect{ |c| [ c.acc_number]}) %>
+          <%= select("transaction", "receiver", names.zip(results2).collect{ |name, result| [ "#{name[0]['name'].to_s} - #{result['acc_number'].to_s}", result["acc_number"]]}) %>
         </div>
 
         <div class="field">
@@ -71,18 +78,21 @@
         </div>
 
     <% elsif current_user.current_transaction == "borrow" %>
-        <%= "New Borrow Request" %>
+        <h3><%= "Borrow Request:" %></h3>
 
-        <%= f.hidden_field :transtype, :value => "Deposit" %>
+        <%= f.hidden_field :transtype, :value => "Borrow" %>
 
+        <% results2 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f')") %>
+        <% names = results2.collect{ |x| ActiveRecord::Base.connection.execute("SELECT name FROM users WHERE id='#{x['user_id']}'") } %>
         <div class="field">
           <%= f.label 'Account to request money from' %>
-          <%= select("transaction", "account_id", @current_accounts.all.collect{ |c| [ c.acc_number, c.id]}) %>
+          <%= select("transaction", "account_id", names.zip(results2).collect{ |name, result| [ "#{name[0]['name'].to_s} - #{result['acc_number'].to_s}", result["id"]]}) %>
         </div>
 
+        <% results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'") %>
         <div class="field">
           <%= f.label 'Receiving Account' %>
-          <%= select("transaction", "receiver", @current_accounts.all.collect{ |c| [ c.acc_number]}) %>
+          <%= select("transaction", "receiver", results1.collect{ |c| [ c["acc_number"], c["acc_number"]]}) %>
         </div>
 
         <div class="field">

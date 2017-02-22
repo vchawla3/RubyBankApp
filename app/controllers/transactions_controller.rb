@@ -67,27 +67,31 @@ class TransactionsController < ApplicationController
     @transaction.start_date = Time.now
 
     if (@transaction.amount > 1000 && @transaction.transtype == 'Withdraw') || @transaction.transtype == 'Deposit'
-      puts "TRANSACTION:"
-      puts @transaction.account
-      @transaction.receiver = @transaction.account.acc_number
-      @transaction.status = 'Pending'
+      puts transaction_params[:account_id]
+      acc_number_arr = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE id='#{transaction_params[:account_id]}'")
 
+      @transaction.receiver = acc_number_arr[0][0]    #= @transaction.account.acc_number
+      @transaction.status = 'Pending'
 
       # only save the transaction b/c pending, no account balance edited
       respond_to do |format|
         if @transaction.save
-            format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
-            format.json { render :show, status: :created, location: @transaction }
+          format.html { redirect_to @transaction, notice: 'Transaction was successfully created.' }
+          format.json { render :show, status: :created, location: @transaction }
         else
           format.html { render :new }
           format.json { render json: @transaction.errors, status: :unprocessable_entity }
         end
       end
     else
+      puts "TRANSACTION STATUS:"
+      puts transaction_params[:account_id]
+      puts transaction_params[:receiver]
+      acc_number_arr = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE id='#{transaction_params[:account_id]}'")
       @transaction.status = 'Approved'
       @transaction.effective_date = @transaction.start_date
 
-      @account = Account.find_by_acc_number(@transaction.account.acc_number)
+      @account = Account.find_by_acc_number(acc_number_arr[0][0])
       bal = @account.balance
 
       if @transaction.transtype == 'Withdraw'
@@ -175,7 +179,7 @@ class TransactionsController < ApplicationController
     end
 
     if @transaction.status == 'Pending'
-        redirect_to transactions_path(:id => '1')
+      redirect_to transactions_path(:id => '1')
     end
   end
 
@@ -190,13 +194,13 @@ class TransactionsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_transaction
     @transaction = Transaction.find(params[:id])
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def transaction_params
-      params.require(:transaction).permit(:id, :transtype, :account_id, :receiver, :status, :amount, :start_date, :effective_date)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def transaction_params
+    params.require(:transaction).permit(:id, :transtype, :account_id, :receiver, :status, :amount, :start_date, :effective_date)
+  end
 end
