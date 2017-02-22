@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :account_requests
   devise_for :users, :path => 'u'
   resources :users
   resources :transactions

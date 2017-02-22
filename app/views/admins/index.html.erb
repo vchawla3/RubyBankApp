@@ -11,6 +11,8 @@
   <br><br>
   <%= link_to 'Approve/Disapprove Transactions', transactions_path(:id => '1') %>
   <br><br>
+  <%= link_to 'Account Requests', account_requests_url %>
+  <br><br>
   <%= link_to "Edit Profile", edit_user_registration_path %>
 
 <% else %>
@@ -23,7 +25,7 @@
   <br><br>
   <%= link_to 'My Friends', friends_url %>
   <br><br>
-  <%= link_to 'Request Account Creation/Deletion (need db table)', transactions_url %>
+  <%= link_to 'Request Account Creation', new_account_request_url %>
   <br><br>
   <%= link_to "Edit Profile", edit_user_registration_path %>
 

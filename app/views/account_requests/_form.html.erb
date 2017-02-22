@@ -1,0 +1,24 @@
+<%= form_for(account_request) do |f| %>
+  <% if account_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(account_request.errors.count, "error") %> prohibited this account_request from being saved:</h2>
+
+      <ul>
+      <% account_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label "Current Number of Accounts Requested" %>
+    <%= f.label @numRequests.to_s %>
+
+  </div>
+
+  <div class="actions">
+    <%= f.label "Request A New Account" %>
+    <%= f.submit %>
+  </div>
+<% end %>

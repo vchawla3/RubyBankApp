@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Account Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Userid</th>
+      <th>Created</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @account_requests.each do |account_request| %>
+      <% if !account_request.created %>
+      <tr>
+        <td><%= account_request.userid %></td>
+        <td><%= account_request.created %></td>
+        <td><%= link_to 'Create', new_account_path(:userid => account_request.userid)%></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Account Request', new_account_request_path %>

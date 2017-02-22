@@ -16,6 +16,10 @@ class AccountsController < ApplicationController
   # GET /accounts/new
   def new
     @account = Account.new
+    @req = User.find_by(:id => params[:userid])
+    if !@req.nil?
+      @account.user_id = @req.id
+    end
   end
 
   # GET /accounts/1/edit
@@ -28,6 +32,14 @@ class AccountsController < ApplicationController
     respond_to do |format|
       @account = Account.new(account_params)
       @account.balance= 0
+
+      if !params[:req].nil?
+
+        @request = AccountRequest.find_by_sql(["SELECT * from account_requests WHERE created = 'f' AND userid=?", params[:req]])
+
+        @request[0].created=true
+        @request[0].save
+      end
 
       if @account.save
         format.html { redirect_to @account, notice: 'Account was successfully created.' }

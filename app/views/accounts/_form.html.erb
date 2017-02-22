@@ -11,10 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "User Email" %>
-    <%= select("account", "user_id", User.where("is_user = 't'").all.collect{ |c| [ c.email, c.id]}) %>
-  </div>
+  <% if @req.nil? %>
+        <div class="field">
+          <%= f.label "User Email" %>
+          <%= select("account", "user_id", User.where("is_user = 't'").all.collect{ |c| [ c.email, c.id]}) %>
+        </div>
+  <% else %>
+        <div class="field">
+          <%= f.label "User Email" %>
+          <%= select("account", "user_id", User.where("is_user = 't' AND id = #{@req.id}").all.collect{ |c| [ c.email, c.id]}) %>
+        </div>
+  <% end %>
+
+
 
   <div class="field">
     <%= f.label "Account Number" %>
@@ -26,7 +35,13 @@
     <%= f.check_box :is_closed %>
   </div>
 
+  <% if !@req.nil? %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.button  "Create Account", name: "req",value: "#{@req.id}"%>
   </div>
+  <% else %>
+   <div class="actions">
+    <%= f.submit %>
+   </div>
+<% end %>
 <% end %>
