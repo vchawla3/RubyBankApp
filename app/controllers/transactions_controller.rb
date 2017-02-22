@@ -23,7 +23,7 @@ class TransactionsController < ApplicationController
   def new
     @transaction = Transaction.new
     @current_account = User.find_by(:id => (current_user.id))
-    @current_accounts = Account.where(:user_id => @current_account)
+    @current_accounts = Account.where(:user_id => @current_account, :is_closed => 'f')
     current_user.current_transaction = params[:event]
     @my_selection = params[:id]
 
