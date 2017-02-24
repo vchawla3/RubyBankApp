@@ -88,6 +88,12 @@ class UsersController < ApplicationController
           friend.destroy
         end
       end
+      @user_account_requests = AccountRequest.all
+      @user_account_requests.each do |acc_req|
+        if acc_req.userid == @user.id
+          acc_req.destroy
+        end
+      end
       @user.destroy
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'Login account was successfully deleted.' }
