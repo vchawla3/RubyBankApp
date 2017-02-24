@@ -30,14 +30,16 @@ class TransactionsController < ApplicationController
     results1 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE user_id='#{current_user.id}' AND is_closed='f'")
     accounts = results1.collect{ |x| x['acc_number'] }
 
-    puts "\n\n\nResults:"
-    puts @current_accounts.all
-    puts @current_accounts.all.collect{ |c| [ c.acc_number, c.id ]}
-    puts @current_accounts.all[0].id.is_a? Integer
-    puts results1
-    puts accounts
-    puts results1.collect{ |c| [ c["acc_number"], c["id"]]}
-    puts "\n\n\n"
+    if @current_accounts.present?
+      puts "\n\n\nResults:"
+      puts @current_accounts.all
+      puts @current_accounts.all.collect{ |c| [ c.acc_number, c.id ]}
+      puts @current_accounts.all[0].id.is_a? Integer
+      puts results1
+      puts accounts
+      puts results1.collect{ |c| [ c["acc_number"], c["id"]]}
+      puts "\n\n\n"
+    end
     #results2 = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE (user_id=\'#{current_user.id}\' AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f'))")
     results2 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE (user_id='#{current_user.id}' AND is_closed='f') OR (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f')")
     names = results2.collect{ |x| ActiveRecord::Base.connection.execute("SELECT name FROM users WHERE id='#{x['user_id']}'") }
