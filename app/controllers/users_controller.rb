@@ -17,6 +17,12 @@ class UsersController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
+    if @user.is_admin
+      @user.is_user = false
+    else
+      @user.is_user = true
+    end
+    @user.save
   end
 
   # GET /people/new
@@ -47,6 +53,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /people/1
   # PATCH/PUT /people/1.json
   def update
+
     respond_to do |format|
       if @user.update(user_params)
         format.html { redirect_to @user, notice: 'Person was successfully updated.' }
@@ -62,6 +69,13 @@ class UsersController < ApplicationController
   # DELETE /people/1.json
   def destroy
     if @user.id != current_user.id && @user.is_super != true
+      @user_accounts = Account.all
+      @user_accounts.each do |dead|
+        if dead.user_id == @user.id
+          dead.user_id = 2
+          dead.update(account_params)
+        end
+      end
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url, notice: 'Login account was successfully deleted.' }
@@ -86,4 +100,18 @@ class UsersController < ApplicationController
       params.require(:user).permit(:id, :name, :email, :current_account, :current_transaction, :password, :password_confirmation, :is_admin, :is_user, :is_super)
     end
 
+    # Use callbacks to share common setup or constraints between actions.
+    def set_account
+      @account = Account.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def account_params
+      params.require(:account).permit(:acc_number, :user_id, :is_closed, :balance)
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def account_params
+      params.permit(:user_id)
+    end
 end
