@@ -61,10 +61,17 @@ class UsersController < ApplicationController
   # DELETE /people/1
   # DELETE /people/1.json
   def destroy
+    if @user.id != 1 && @user.id != current_user.id && @user.is_super != 't'
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'Person was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: 'Login account was successfully deleted.' }
       format.json { head :no_content }
+    end
+    else
+      respond_to do |format|
+        format.html { redirect_to users_url, alert: 'Cannot delete superuser or currently logged in admin.' }
+        format.json { head :no_content }
+      end
     end
   end
 
