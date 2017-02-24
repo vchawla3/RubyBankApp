@@ -26,7 +26,6 @@
         <td><%= number_to_currency(transaction.amount) %></td>
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
-        <td><%= link_to 'Show', transaction %></td>
         <td><% if transaction.status == 'Pending' && current_user.is_admin == false %>
             <%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
@@ -43,7 +42,6 @@
             <td><%= number_to_currency(transaction.amount) %></td>
             <td><%= transaction.start_date %></td>
             <td><%= transaction.effective_date %></td>
-            <td><%= link_to 'Show', transaction %></td>
             <td><%= link_to 'Approve/Decline', edit_transaction_path(transaction) %></td></tr>
         <% end %>
   </tbody>
