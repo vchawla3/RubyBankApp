@@ -32,6 +32,12 @@ class UsersController < ApplicationController
 
   # GET /people/1/edit
   def edit
+    if @user.id == current_user.id && @user.is_super == true
+      respond_to do |format|
+        format.html { redirect_to users_url, alert: 'Cannot modify superuser or currently logged in admin.' }
+        format.json { head :no_content }
+      end
+    end
   end
 
   # POST /people
@@ -82,11 +88,11 @@ class UsersController < ApplicationController
           friend.destroy
         end
       end
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'Login account was successfully deleted.' }
-      format.json { head :no_content }
-    end
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: 'Login account was successfully deleted.' }
+        format.json { head :no_content }
+      end
     else
       respond_to do |format|
         format.html { redirect_to users_url, alert: 'Cannot delete superuser or currently logged in admin.' }

@@ -22,7 +22,6 @@
         <td><%= account.acc_number %></td>
         <td><%= account.is_closed %></td>
         <td><%= number_to_currency(account.balance) %></td>
-        <td><%= link_to 'View', account %></td>
         <td><%= link_to 'Open/Close', edit_account_path(account) %></td>
         <td><%= link_to 'Delete', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <td><%= link_to 'Transactions', transactions_path(:id => account.acc_number) %></td>
@@ -41,7 +40,6 @@
             <td><%= account.acc_number %></td>
             <td><%= account.is_closed %></td>
             <td><%= number_to_currency(account.balance) %></td>
-            <td><%= link_to 'View', account %></td>
             <% if account.is_closed == false %>
                 <td><%= link_to 'Withdraw', new_transaction_path(:id => account.acc_number, :event => "withdraw") %> </td>
                 <td><%= link_to 'Deposit', new_transaction_path(:id => account.acc_number, :event => "deposit") %> </td>
