@@ -73,7 +73,7 @@ class UsersController < ApplicationController
       @user_accounts.each do |account|
         if account.user_id == @user.id
           account.user_id = 2
-          account.update(:user_id)
+          account.update(account_params)
         end
       end
       @user_friends = Friend.all
@@ -109,5 +109,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_account
       @account = Account.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def account_params
+      params.permit(:acc_number, :user_id, :is_closed, :balance)
     end
 end
