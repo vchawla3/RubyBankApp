@@ -32,12 +32,24 @@ class FriendsController < ApplicationController
     results2 = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE name=\'#{@friend['friend1']}\'")
     if(results.present?)
       @friend['friend1'] = results[0][0]
+      already_added  = Friend.where(:friend1 => @friend['friend1'], :friend2 => current_user.id)
+      if already_added.present? == false
+        already_added  = Friend.where(:friend2 => @friend['friend1'], :friend1 => current_user.id)
+      end
     else
       if(results2.present?)
         @friend['friend1'] = results2[0][0]
+        already_added  = Friend.where(:friend1 => @friend['friend1'], :friend2 => current_user.id)
+        if already_added.present? == false
+          already_added  = Friend.where(:friend2 => @friend['friend1'], :friend1 => current_user.id)
+        end
       else
         @friend['friend1'] = "Database"
       end
+    end
+
+    if(already_added.present?)
+      @friend['friend1'] = "Duplicate"
     end
 
     if(orig == '')
