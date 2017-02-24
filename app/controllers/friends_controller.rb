@@ -90,7 +90,7 @@ class FriendsController < ApplicationController
   def destroy
     @friend.destroy
     respond_to do |format|
-      format.html { redirect_to friends_url, notice: 'Friend was successfully destroyed.' }
+      format.html { redirect_to friends_url, notice: 'Friendship was successfully terminated.' }
       format.json { head :no_content }
     end
   end
