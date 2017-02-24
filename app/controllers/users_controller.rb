@@ -70,10 +70,16 @@ class UsersController < ApplicationController
   def destroy
     if @user.id != current_user.id && @user.is_super != true
       @user_accounts = Account.all
-      @user_accounts.each do |dead|
-        if dead.user_id == @user.id
-          dead.user_id = 2
-          dead.update(account_params)
+      @user_accounts.each do |account|
+        if account.user_id == @user.id
+          account.user_id = 2
+          account.update(:user_id)
+        end
+      end
+      @user_friends = Friend.all
+      @user_friends.each do |friend|
+        if friend.friend1 == @user.id.to_s || friend.friend2 == @user.id.to_s
+          friend.destroy
         end
       end
     @user.destroy
@@ -103,15 +109,5 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_account
       @account = Account.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def account_params
-      params.require(:account).permit(:acc_number, :user_id, :is_closed, :balance)
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def account_params
-      params.permit(:user_id)
     end
 end
