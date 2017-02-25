@@ -91,9 +91,11 @@ class TransactionsController < ApplicationController
       puts transaction_params[:receiver]
       puts transaction_params[:transtype]
       acc_number_arr = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE id='#{transaction_params[:account_id]}'")
-      @transaction.status = 'Approved'
-      @transaction.effective_date = @transaction.start_date
+      if (@transaction.transtype == 'Withdraw' || @transaction.transtype == 'Deposit')
+        @transaction.effective_date = @transaction.start_date
+      end
 
+      @transaction.status = 'Approved'
 
       @account = Account.find_by_acc_number(acc_number_arr[0][0])
       bal = @account.balance
@@ -192,7 +194,6 @@ class TransactionsController < ApplicationController
     @transaction2 = Transaction.new(transaction_params)
     @transaction.status=@transaction2.status
 
-    @transaction.effective_date = Time.now
     @account = nil
     bal = 0
     if @transaction.status == 'Approved' && (@transaction.transtype == 'Deposit' || @transaction.transtype == 'Withdraw')

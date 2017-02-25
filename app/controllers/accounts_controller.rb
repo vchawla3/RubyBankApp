@@ -75,6 +75,12 @@ class AccountsController < ApplicationController
   # DELETE /accounts/1
   # DELETE /accounts/1.json
   def destroy
+    @account_transactions = Transaction.all
+    @account_transactions.each do |transaction|
+      if transaction.account.acc_number == @account.acc_number
+        transaction.destroy
+      end
+    end
     @account.destroy
     respond_to do |format|
       format.html { redirect_to accounts_url, notice: 'Account was successfully deleted.' }
