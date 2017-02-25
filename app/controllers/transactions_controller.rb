@@ -12,7 +12,12 @@ class TransactionsController < ApplicationController
   # GET /transactions/1
   # GET /transactions/1.json
   def show
-    current_user.current_account = @transaction.account.acc_number
+    if @transaction.transtype == 'Deposit' || @transaction.transtype == 'Withdraw'
+      current_user.current_account = @transaction.account.acc_number
+    else
+      current_user.current_account = @transaction.receiver
+    end
+
     if @transaction.effective_date == nil && @transaction.status != 'Pending'
       @transaction.effective_date = Time.now
       @transaction.save
