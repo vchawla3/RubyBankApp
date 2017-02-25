@@ -49,4 +49,8 @@
   <%= @transaction.effective_date %>
 </p>
 
-<%= link_to 'Back', transactions_path(:id => current_user.current_account) %>
+<% if current_user.is_admin %>
+  <%= link_to 'Back', transactions_path(:id => 0) %>
+<% else %>
+  <%= link_to 'Back', transactions_path(:id => current_user.current_account) %>
+<% end %>

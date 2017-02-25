@@ -129,8 +129,28 @@ class TransactionsController < ApplicationController
           end
         end
       elsif transaction_params[:transtype] == 'Borrow'
+        puts
         #handle differently
+        @transaction.status = 'Pending'
 
+        respond_to do |format|
+          if @account.save
+            if @transaction.save
+              format.html { redirect_to @transaction, notice: 'Borrow request has been sent.' }
+              format.json { render :show, status: :created, location: @transaction }
+            else
+              format.html { render :new }
+              format.json { render json: @transaction.errors, status: :unprocessable_entity }
+            end
+          else
+            #format.html { render :new }
+            #format.json { render json: @friend.errors, status: :unprocessable_entity }
+
+            #not sure if we want this, will take to specific account page with error at top
+            format.json { render json: @account.errors, status: :unprocessable_entity }
+            format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+          end
+        end
 
       else
         #not a send or borrow, just deal with 1 account then
@@ -175,7 +195,7 @@ class TransactionsController < ApplicationController
     @transaction.effective_date = Time.now
     @account = nil
     bal = 0
-    if @transaction.status == 'Approved'
+    if @transaction.status == 'Approved' && (@transaction.transtype == 'Deposit' || @transaction.transtype == 'Withdraw')
       #update account info
       @account = Account.find_by_acc_number(@transaction.receiver)
       bal = @account.balance
@@ -205,7 +225,42 @@ class TransactionsController < ApplicationController
           format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
         end
       end
+    elsif @transaction.status == 'Approved' && @transaction.transtype == 'Borrow'
+      @account = Account.find_by_acc_number(@transaction.receiver)
+      bal = @account.balance
+      acc_number_arr = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE id='#{@transaction.account_id}'")
+
+      #receiving account
+      @accountRec = Account.find_by_acc_number(acc_number_arr[0][0])
+      balRec = @accountRec.balance
+
+      #give money to receiver
+      bal+= @transaction.amount
+      @account.balance= bal
+
+      #take money from sender
+      balRec-= @transaction.amount
+      @accountRec.balance= balRec
+
+      respond_to do |format|
+        if @account.save
+          #first account had enough money, now just update second account. NO if needed cuz adding money should always work
+          @accountRec.save
+          if @transaction.save
+            format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
+            format.json { render :show, status: :created, location: @transaction }
+          else
+            format.html { render :new }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
+          end
+        else
+          #if the first account cannot be saved AKA it doesn't have the money, then this error will throw and show up
+          format.json { render json: @account.errors, status: :unprocessable_entity }
+          format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+        end
+      end
     end
+
     if @transaction.status == 'Declined'
       #do nothing?
       respond_to do |format|
@@ -219,8 +274,10 @@ class TransactionsController < ApplicationController
       end
     end
 
-    if @transaction.status == 'Pending'
+    if @transaction.status == 'Pending' && current_user.is_admin
       redirect_to transactions_path(:id => '1')
+    elsif @transaction.status == 'Pending'
+      redirect_to transactions_path()
     end
   end
 

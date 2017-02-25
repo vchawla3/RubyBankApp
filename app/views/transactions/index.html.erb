@@ -16,8 +16,10 @@
   </thead>
 
   <tbody>
+  <% record = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE user_id='#{current_user.id}'") %>
+  <% userAccounts = record.collect{ |account| account[0]} %>
   <% @transactions.each do |transaction| %>
-     <% if current_user.current_account == transaction.account.acc_number || current_user.current_account == transaction.receiver || current_user.current_account == '0' %>
+      <% if (!current_user.current_account.nil? && (((userAccounts.include?(transaction.account.acc_number) || userAccounts.include?(transaction.receiver)) && (current_user.current_account == transaction.account.acc_number || current_user.current_account == transaction.receiver)) || (current_user.current_account == '0' && current_user.is_admin))) || (current_user.current_account.nil? && (userAccounts.include?(transaction.account.acc_number) || userAccounts.include?(transaction.receiver))) %>
       <tr>
         <td><%= transaction.transtype %></td>
         <td><%= transaction.account.acc_number %></td>
@@ -26,15 +28,15 @@
         <td><%= number_to_currency(transaction.amount) %></td>
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
-        <td><% if transaction.status == 'Pending' && current_user.is_admin == false %>
+        <td><% if transaction.status == 'Pending' && current_user.is_admin == false && !userAccounts.include?(transaction.account.acc_number)%>
             <%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
-        <% if transaction.status == 'Pending' && current_user.is_admin == true %>
+        <% if transaction.status == 'Pending' && ((current_user.is_admin == true && transaction.transtype != 'Borrow') || (transaction.transtype == 'Borrow' && userAccounts.include?(transaction.account.acc_number)))%>
             <%= link_to 'Approve/Decline', edit_transaction_path(transaction) %>
         <% end %></td>
        </tr>
        <% end %>
-        <% if transaction.status == 'Pending' && current_user.current_account == '1' && current_user.is_admin == true %>
+        <% if transaction.status == 'Pending' && current_user.current_account == '1' && current_user.is_admin == true && transaction.transtype != 'Borrow' %>
             <tr><td><%= transaction.transtype %></td>
             <td><%= transaction.account.acc_number %></td>
             <td><%= transaction.receiver %></td>
@@ -49,7 +51,7 @@
 </table>
 
 <br />
-<% if current_user.is_admin == false %>
+<% if current_user.is_user == true %>
       <table>
         <tr>
           <th><%= "New Transaction:" %> </th>

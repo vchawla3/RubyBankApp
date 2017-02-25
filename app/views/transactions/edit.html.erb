@@ -2,4 +2,8 @@
 
 <%= render 'edit', transaction: @transaction %>
 
-<%= link_to 'Back', transactions_path(:id => '1') %>
+<% if current_user.is_admin %>
+    <%= link_to 'Back', transactions_path(:id => 1) %>
+<% else %>
+    <%= link_to 'Back', transactions_path() %>
+<% end %>

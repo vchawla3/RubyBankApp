@@ -21,22 +21,50 @@
     <%= @transaction.account.acc_number %>
   </div>
 
+  <% if @transaction.account.acc_number != @transaction.receiver %>
   <div class="field">
     <%= f.label "Receiving Account" %>
     <%= @transaction.receiver %>
   </div>
+  <% end %>
 
+  <% record = ActiveRecord::Base.connection.execute("SELECT acc_number FROM accounts WHERE user_id='#{current_user.id}'") %>
+  <% userAccounts = record.collect{ |account| account[0]} %>
+
+  <% requestAccount = ActiveRecord::Base.connection.execute("SELECT * FROM users WHERE id=(SELECT user_id FROM accounts WHERE acc_number='#{@transaction.receiver}')") %>
+  <% balance = ActiveRecord::Base.connection.execute("SELECT balance FROM accounts WHERE acc_number='#{@transaction.account.acc_number}'") %>
+
+  <% if @transaction.status == "Pending" && ((current_user.is_admin && @transaction.transtype != "Borrow") || (@transaction.transtype == "Borrow" && userAccounts.include?(@transaction.account.acc_number) && balance[0][0] >= @transaction.amount)) %>
   <div class="field">
     <%= f.label "Status" %>
     <%= select('transaction', 'status', ['Pending', 'Approved', 'Declined']) %>
   </div>
+  <% elsif @transaction.status == "Pending" && (@transaction.transtype == "Borrow" && userAccounts.include?(@transaction.account.acc_number) && balance[0][0] < @transaction.amount) %>
+  <div class="field">
+    <%= f.label "Status" %>
+    <%= select('transaction', 'status', ['Pending', 'Declined']) %>
+  </div>
+  <% else %>
+  <div class="field">
+    <%= f.label "Status" %>
+    <%= @transaction.status %>
+  </div>
+  <% end %>
 
   <div class="field">
     <%= f.label "Amount" %>
     <%= number_to_currency(@transaction.amount) %>
   </div>
 
+  <% if @transaction.status == "Pending" && @transaction.transtype == "Borrow" && userAccounts.include?(@transaction.account.acc_number) %>
+  <div class="field">
+    <%= f.label "Important Note" %>
+    <%= "This is a borrow request from user, #{requestAccount[0]['name']}, with the email address, #{requestAccount[0]['email']}.  They are requesting #{number_to_currency(@transaction.amount)} from your account, #{@transaction.account.acc_number}, which currently contains #{number_to_currency(balance[0][0])}.  Please note that you can only accept this request if you have the amount of money requested, and if you choose to accept, there is no way to guarantee you will ever be repaid for letting them borrow this money." %>
+  </div>
+  <% end %>
+  <% if @transaction.status == "Pending" && ((current_user.is_admin && @transaction.transtype != "Borrow") || (@transaction.transtype == "Borrow" && userAccounts.include?(@transaction.account.acc_number))) %>
   <div class="actions">
     <%= f.submit %>
   </div>
+  <% end %>
 <% end %>
