@@ -15,7 +15,11 @@ class TransactionsController < ApplicationController
     if @transaction.transtype == 'Deposit' || @transaction.transtype == 'Withdraw'
       current_user.current_account = @transaction.account.acc_number
     else
-      current_user.current_account = @transaction.receiver
+      if @transaction.status == 'Pending' && @transaction.transtype == 'Borrow'
+        current_user.current_account = @transaction.receiver
+      else
+        current_user.current_account = @transaction.account.acc_number
+      end
     end
 
     if @transaction.effective_date == nil && @transaction.status != 'Pending'

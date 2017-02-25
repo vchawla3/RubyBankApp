@@ -4,7 +4,6 @@
     <list default="true" id="e9202e71-3b27-4b1c-bd1a-909bacb66453" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/transactions_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/transactions_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/transactions/edit.html.erb" afterPath="$PROJECT_DIR$/app/views/transactions/edit.html.erb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -111,8 +110,8 @@
       <file leaf-file-name="transactions_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/transactions_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+            <state relative-caret-position="289">
+              <caret line="17" column="79" lean-forward="true" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
               <folding />
             </state>
           </provider>
@@ -704,14 +703,7 @@
       <workItem from="1487501466655" duration="25193000" />
       <workItem from="1487579120538" duration="38887000" />
       <workItem from="1487692046110" duration="41897000" />
-      <workItem from="1487927324788" duration="34033000" />
-    </task>
-    <task id="LOCAL-00002" summary="Authentication starting to work">
-      <created>1487226183617</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1487226183617</updated>
+      <workItem from="1487927324788" duration="34713000" />
     </task>
     <task id="LOCAL-00003" summary="Authentication starting to work">
       <created>1487226338170</created>
@@ -1049,7 +1041,14 @@
       <option name="project" value="LOCAL" />
       <updated>1488025105132</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Fixed back button to go to the correct account when borrowing and receiving">
+      <created>1488026153718</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1488026153718</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1058,7 +1057,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="306512000" />
+    <option name="totallyTimeSpent" value="307192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1119,7 +1118,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Selection box filtering for transactions working" />
     <MESSAGE value="Quick fix for new transaction back button when adding new transaction directly from user menu" />
     <MESSAGE value="Quick friends name search fix" />
     <MESSAGE value="Error checking" />
@@ -1144,7 +1142,8 @@
     <MESSAGE value="Removed more reduntant show menus and fixed some back buttons for better navigation" />
     <MESSAGE value="Fixed account request when a user is deleted.  It now deletes request as well instead of causing crash." />
     <MESSAGE value="Updated to delete transactions when account is deleted.  Also, allowed admins to see individual account transaction history." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated to delete transactions when account is deleted.  Also, allowed admins to see individual account transaction history." />
+    <MESSAGE value="Fixed back button to go to the correct account when borrowing and receiving" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed back button to go to the correct account when borrowing and receiving" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1550,8 +1549,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/transactions_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="28" lean-forward="true" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+        <state relative-caret-position="289">
+          <caret line="17" column="79" lean-forward="true" selection-start-line="17" selection-start-column="79" selection-end-line="17" selection-end-column="79" />
           <folding />
         </state>
       </provider>
