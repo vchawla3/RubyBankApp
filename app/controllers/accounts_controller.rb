@@ -79,6 +79,11 @@ class AccountsController < ApplicationController
     @account_transactions.each do |transaction|
       if transaction.account.acc_number == @account.acc_number
         transaction.destroy
+      elsif transaction.transtype == 'Borrow' && transaction.status == 'Pending' && transaction.receiver == @account.acc_number
+        #a borrow trans, still pending, and has reciever as the acct being deleted, decline acct and set effective date
+        transaction.status= 'Declined'
+        transaction.effective_date = Time.now
+        transaction.save
       end
     end
     @account.destroy

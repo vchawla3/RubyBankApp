@@ -145,21 +145,12 @@ class TransactionsController < ApplicationController
         @transaction.status = 'Pending'
 
         respond_to do |format|
-          if @account.save
-            if @transaction.save
-              format.html { redirect_to @transaction, notice: 'Borrow request has been sent.' }
-              format.json { render :show, status: :created, location: @transaction }
-            else
-              format.html { render :new }
-              format.json { render json: @transaction.errors, status: :unprocessable_entity }
-            end
+          if @transaction.save
+            format.html { redirect_to @transaction, notice: 'Borrow request has been sent.' }
+            format.json { render :show, status: :created, location: @transaction }
           else
-            #format.html { render :new }
-            #format.json { render json: @friend.errors, status: :unprocessable_entity }
-
-            #not sure if we want this, will take to specific account page with error at top
-            format.json { render json: @account.errors, status: :unprocessable_entity }
-            format.html { redirect_to @account, alert: @account.errors.full_messages[0].to_s }
+            format.html { render :new }
+            format.json { render json: @transaction.errors, status: :unprocessable_entity }
           end
         end
 
