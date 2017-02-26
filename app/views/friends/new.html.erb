@@ -1,5 +1,8 @@
 <h1>New Friend</h1>
 
-<%= render 'form', friend: @friend %>
-
+<% if @selection == '0' %>
+    <%= render 'selection', friend: @friend %>
+<% else %>
+    <%= render 'form', friend: @friend %>
+<% end %>
 <%= link_to 'Back', friends_path %>

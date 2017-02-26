@@ -17,12 +17,11 @@ class UsersController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
-    if @user.is_admin
-      @user.is_user = false
-    else
+    #Protect from case where neither user or admin is selected.
+    if !@user.is_admin && !@user.is_user
       @user.is_user = true
+      @user.save
     end
-    @user.save
   end
 
   # GET /people/new
@@ -32,7 +31,7 @@ class UsersController < ApplicationController
 
   # GET /people/1/edit
   def edit
-    if @user.id == current_user.id && @user.is_super == true
+    if @user.id == current_user.id || @user.is_super == true
       respond_to do |format|
         format.html { redirect_to users_url, alert: 'Cannot modify superuser or currently logged in admin.' }
         format.json { head :no_content }

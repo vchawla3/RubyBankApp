@@ -6,6 +6,7 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     @accounts = Account.all
+    @view_pref = params[:id]
   end
 
   # GET /accounts/1
@@ -33,6 +34,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       @account = Account.new(account_params)
       @account.balance= 0
+      @account.is_closed = false
 
       if !params[:req].nil?
 

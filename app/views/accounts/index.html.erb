@@ -12,7 +12,7 @@
     </tr>
   </thead>
 
-  <% if current_user.is_admin == true %>
+  <% if current_user.is_admin == true  && @view_pref != '10' %>
 
   <tbody>
     <% @accounts.each do |account| %>

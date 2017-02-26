@@ -24,7 +24,9 @@
     <br><br>
     <h3>User options:</h3>
   <% end %>
-  <%= link_to 'My Accounts', accounts_url %>
+  <%= link_to 'My Accounts', accounts_path(:id => '10') %>
+  <br><br>
+  <%= link_to 'View All Transactions', transactions_url %>
   <br><br>
   <%= link_to 'New Bank Transaction', new_transaction_url %>
   <br><br>

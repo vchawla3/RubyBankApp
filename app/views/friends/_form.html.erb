@@ -11,12 +11,37 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label "Enter a friend's email address or name" %>
-    <%= f.text_field :friend1 %>
-  </div>
+    <table>
+      <thead style="color: darkblue; font-style: italic">
+      <tr>
+        <th>Name&nbsp; &nbsp;</th>
+        <th>Email Address&nbsp; &nbsp;</th>
+        <th colspan="3"></th>
+      </tr>
+      </thead>
 
-    <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+      <tbody>
+      <% if @my_users.present? %>
+      <% @my_users.each do |user| %>
+          <% if user.is_user && user.id != current_user.id %>
+            <% @my_friend.each do |fri| %>
+              <% if user.id.to_s != fri.friend1.to_s && user.id.to_s != fri.friend2.to_s %>
+                  <% @my_set.each do |search| %>
+                    <% if search.id.to_s == user.id.to_s %>
+                      <tr>
+                      <td><%= user.name %></td>
+                      <td><%= user.email %></td>
+                      <td> <%= f.button "Create Friend", name: 'this_friend',value: user.id %></td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+      <% end %>
+      <% end %>
+      </tbody>
+    </table>
+
+  <% end %>
+

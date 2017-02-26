@@ -84,6 +84,7 @@
 
         <% results2 = ActiveRecord::Base.connection.execute("SELECT * FROM accounts WHERE (user_id IN (SELECT friend2 FROM friends WHERE friend1='#{current_user.id}') AND is_closed='f') OR (user_id IN (SELECT friend1 FROM friends WHERE friend2='#{current_user.id}') AND is_closed='f')") %>
         <% names = results2.collect{ |x| ActiveRecord::Base.connection.execute("SELECT name FROM users WHERE id='#{x['user_id']}'") } %>
+        <% if names.present? %>
         <div class="field">
           <%= f.label 'Account to request money from' %>
           <%= select("transaction", "account_id", names.zip(results2).collect{ |name, result| [ "#{name[0]['name'].to_s} - #{result['acc_number'].to_s}", result["id"]]}) %>
@@ -103,6 +104,9 @@
         <div class="actions">
           <%= f.submit %>
         </div>
+        <% else %>
+            <p style="color: red; font-size: medium;"><%= "You have no friends... You cannot borrow." %></p>
+        <% end %>
     <% else %>
         <%= "An error has occurred" %>
     <% end %>

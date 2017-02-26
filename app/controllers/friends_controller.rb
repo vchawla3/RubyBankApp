@@ -15,7 +15,17 @@ class FriendsController < ApplicationController
 
   # GET /friends/new
   def new
+    @selection = params[:id]
+    @search = params[:search]
+    @my_friend = Friend.all
     @friend = Friend.new
+    #@my_set
+    #if params[:id] != nil && params[:id] != '0'
+      @my_set = User.all.where("name like ? OR email like ?", "%#{@search}%","%#{@search}%")
+    #end
+    @my_users = User.all
+
+    @current_friends = Friend.where(:friend2 => current_user.id)
   end
 
   # GET /friends/1/edit
@@ -25,39 +35,41 @@ class FriendsController < ApplicationController
   # POST /friends
   # POST /friends.json
   def create
-    @friend = Friend.new(friend_params)
+    @selection = params[:id]
+    if params[:id] != '0' && params[:this_friend] == nil
+      @friend = Friend.new(friend_params)
+      puts "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nInside If statement: "
+      puts @selection
+      puts @friend['friend1']
+      redirect_to new_friend_path(:id => @selection, :search => @friend['friend1'])
+    else
+
+    @friend = Friend.new
+
     @friend['friend2'] = current_user.id
-    orig = @friend['friend1']
-    results = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE email=\'#{@friend['friend1']}\'")
-    results2 = ActiveRecord::Base.connection.execute("SELECT id FROM users WHERE name=\'#{@friend['friend1']}\'")
-    if(results.present?)
-      @friend['friend1'] = results[0][0]
+
+    if params[:this_friend].present?
+      @friend['friend1'] = params[:this_friend]
       already_added  = Friend.where(:friend1 => @friend['friend1'], :friend2 => current_user.id)
       if already_added.present? == false
         already_added  = Friend.where(:friend2 => @friend['friend1'], :friend1 => current_user.id)
       end
     else
-      if(results2.present?)
-        @friend['friend1'] = results2[0][0]
-        already_added  = Friend.where(:friend1 => @friend['friend1'], :friend2 => current_user.id)
-        if already_added.present? == false
-          already_added  = Friend.where(:friend2 => @friend['friend1'], :friend1 => current_user.id)
-        end
-      else
-        @friend['friend1'] = "Database"
-      end
+      @friend['friend1'] = "Database"
     end
 
     if(already_added.present?)
       @friend['friend1'] = "Duplicate"
     end
 
-    if(orig == '')
-      @friend['friend1'] = orig
-    end
     if(@friend['friend1'] == @friend['friend2'] || @friend['friend1'] == 0 )
       @friend['friend1'] = 'Repeat'
     end
+
+    puts "\n\n\n\n\n\n\n\nThe new friend id is: "
+    puts @friend.id
+    puts @friend.friend1
+    puts @friend.friend2
 
     respond_to do |format|
       if( @friend.save)
@@ -66,8 +78,8 @@ class FriendsController < ApplicationController
       else
         format.html { render :new }
         format.json { render json: @friend.errors, status: :unprocessable_entity }
-        @friend['friend1'] = orig
       end
+    end
     end
   end
 

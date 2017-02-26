@@ -1,0 +1,24 @@
+<%= form_for(friend) do |f| %>
+  <% if friend.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(friend.errors.count, "error") %> prohibited this friend from being saved:</h2>
+
+      <ul>
+      <% friend.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+      <div class="field">
+        <%= f.label "Enter part of a user's name or email address to complete search" %><br />
+        <%= f.text_field :friend1 %>
+      </div>
+
+      <div class="field">
+        <%= f.button "Search for Friend"%>
+      </div>
+  <% end %>
+

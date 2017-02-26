@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!(name: 'Admin', password: 'password', is_super: true, is_admin: true, is_user: false, email: "ADMIN@ncsu.edu")
-User.create!(name: 'Deleted User', password: 'deaduser', is_super: false, is_admin: false, is_user: false, email: "deleted@ncsu.edu")
+User.create!(name: 'Deleted User', password: 'deaduser', is_super: true, is_admin: false, is_user: false, email: "deleted@ncsu.edu")

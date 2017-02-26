@@ -62,6 +62,9 @@
         </tr>
       </table>
 <% end %>
-
+<% if current_user.is_admin && current_user.is_user %>
+  <br /><br />
+  <%= link_to 'Return My Accounts', accounts_path(:id => '10') %>
+<% end %>
 <br /><br />
-<%= link_to 'Return to Accounts', accounts_url %>
+<%= link_to 'Return to all Accounts', accounts_url %>
