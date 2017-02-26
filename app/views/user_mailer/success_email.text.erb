@@ -1,0 +1,16 @@
+Congrats, <%= @user.name %>, you have a new successful transaction!
+===============================================
+Transaction Info...
+
+Transaction Type: <%= @transaction.transtype %>
+Account Sending: <%= @transaction.account.acc_number %>
+Account Receiving: <%= @transaction.receiver %>
+Amount: $<%= number_to_currency(@transaction.amount) %>
+Transaction Start Date: <%= @transaction.start_date %>
+Transaction Effective Date: <%= @transaction.effective_date %>
+
+
+Thanks and have a great day!
+
+Sincerely,
+Your friendly, neighborhood Ruby Bank!

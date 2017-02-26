@@ -126,7 +126,13 @@ class TransactionsController < ApplicationController
           if @account.save
             #first account had enough money, now just update second account. NO if needed cuz adding money should always work
             @accountRec.save
+
+            #sending money, effective now!
+            @transaction.effective_date = Time.now
+
             if @transaction.save
+              # send email for successful trans
+              sendEmail @transaction
               format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
               format.json { render :show, status: :created, location: @transaction }
             else
@@ -169,6 +175,8 @@ class TransactionsController < ApplicationController
         respond_to do |format|
           if @account.save
             if @transaction.save
+              # send email for successful trans
+              sendEmail @transaction
               format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
               format.json { render :show, status: :created, location: @transaction }
             else
@@ -210,10 +218,16 @@ class TransactionsController < ApplicationController
       end
       @account.balance=bal
 
+
+
       #right now, if account doesn't save, neither will transaction and it will redirect to account page with alert
       respond_to do |format|
         if @account.save
+          # effective date is time now!
+          @transaction.effective_date = Time.now
           if @transaction.update(transaction_params)
+            # send email for successful trans
+            sendEmail @transaction
             format.html { redirect_to @transaction, notice: 'Transaction was successfully updated.' }
             format.json { render :show, status: :ok, location: @transaction }
           else
@@ -243,11 +257,17 @@ class TransactionsController < ApplicationController
       balRec-= @transaction.amount
       @accountRec.balance= balRec
 
+
+
       respond_to do |format|
         if @account.save
           #first account had enough money, now just update second account. NO if needed cuz adding money should always work
           @accountRec.save
+          # effective date is time now!
+          @transaction.effective_date = Time.now
           if @transaction.save
+            # send email for successful trans
+            sendEmail @transaction
             format.html { redirect_to @transaction, notice: 'Transaction was successfully created and Account updated.' }
             format.json { render :show, status: :created, location: @transaction }
           else
@@ -301,5 +321,26 @@ class TransactionsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def transaction_params
     params.require(:transaction).permit(:id, :transtype, :account_id, :receiver, :status, :amount, :start_date, :effective_date)
+  end
+
+
+  # Emailing user on approved transaction (depost, withdraw, sending money)
+  def sendEmail(transaction)
+    if transaction.transtype == 'Deposit' || transaction.transtype == 'Withdraw'
+      #just one email to the user who deposited/withdrew
+      UserMailer.success_email(transaction.account.user, transaction).deliver_later
+
+    elsif transaction.transtype == 'Send' || transaction.transtype == 'Borrow'
+      #two emails, one for sender and one for receiver
+
+      #email for the sender
+      UserMailer.success_email(transaction.account.user, transaction).deliver_later
+
+      #email for the receiver
+      user = Account.find_by_acc_number(transaction.receiver).user
+      UserMailer.success_email(user, transaction).deliver_later
+    end
+
+
   end
 end
