@@ -9,7 +9,8 @@ class AccountTest < ActiveSupport::TestCase
 
   def setup
     @account = Account.new
-    @account.acc_number = 123456789
+    @account.is_closed = false
+    @account.acc_number = 333333333
   end
 
   test "user id must be present" do
@@ -30,9 +31,13 @@ class AccountTest < ActiveSupport::TestCase
 
   test "acct num has to be 9 digits" do
     @account.user_id = 1
-    @account.acc_number = 1234567891
+
+    #more than 9 digits, fail
+    @account.acc_number = 3333333333
     assert_not @account.save
-    @account.acc_number = 12345678
+
+    #less than 9 digits, fail
+    @account.acc_number = 33333333
     assert_not @account.save
   end
 
