@@ -17,7 +17,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transaction" do
     assert_difference('Transaction.count') do
-      post transactions_url, params: { transaction: { amount: @transaction.amount, effective_date: @transaction.effective_date, receiver: @transaction.receiver, sender: @transaction.sender, start_date: @transaction.start_date, status: @transaction.status, type: @transaction.type } }
+      post transactions_url, params: { transaction: { amount: @transaction.amount, effective_date: @transaction.effective_date, receiver: @transaction.receiver, account_id: @transaction.account_id, start_date: @transaction.start_date, status: @transaction.status, transtype: @transaction.transtype } }
     end
 
     assert_redirected_to transaction_url(Transaction.last)
@@ -34,7 +34,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update transaction" do
-    patch transaction_url(@transaction), params: { transaction: { amount: @transaction.amount, effective_date: @transaction.effective_date, receiver: @transaction.receiver, sender: @transaction.sender, start_date: @transaction.start_date, status: @transaction.status, type: @transaction.type } }
+    patch transaction_url(@transaction), params: { transaction: { amount: @transaction.amount, effective_date: @transaction.effective_date, receiver: @transaction.receiver, account_id: @transaction.account_id, start_date: @transaction.start_date, status: @transaction.status, transtype: @transaction.transtype } }
     assert_redirected_to transaction_url(@transaction)
   end
 

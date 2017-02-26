@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  acc_number: MyString
+  id: 1
+  acc_number: 123456789
   is_closed: false
   balance: 9.99
+  user_id: 1
 
 two:
-  acc_number: MyString
+  id: 2
+  acc_number: 987654321
   is_closed: false
   balance: 9.99
+  user_id: 1
