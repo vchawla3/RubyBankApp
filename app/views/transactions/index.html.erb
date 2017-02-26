@@ -28,7 +28,7 @@
         <td><%= number_to_currency(transaction.amount) %></td>
         <td><%= transaction.start_date %></td>
         <td><%= transaction.effective_date %></td>
-        <td><% if transaction.status == 'Pending' && current_user.is_admin == false && !userAccounts.include?(transaction.account.acc_number)%>
+        <td><% if (transaction.status == 'Pending' && current_user.is_admin == false && !userAccounts.include?(transaction.account.acc_number) && transaction.transtype == 'Borrow') || (transaction.status == 'Pending' && current_user.is_admin == false && userAccounts.include?(transaction.account.acc_number) && transaction.transtype != 'Borrow')%>
             <%= link_to 'Cancel', transaction, method: :delete, data: { confirm: 'Are you sure?' } %>
         <% end %>
         <% if transaction.status == 'Pending' && ((current_user.is_admin == true && transaction.transtype != 'Borrow') || (transaction.transtype == 'Borrow' && userAccounts.include?(transaction.account.acc_number)))%>
